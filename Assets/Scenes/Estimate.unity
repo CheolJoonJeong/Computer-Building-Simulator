@@ -272,7 +272,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -14, y: 200}
-  m_SizeDelta: {x: 260, y: 60}
+  m_SizeDelta: {x: 500, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &106507416
 MonoBehaviour:
@@ -1342,7 +1342,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -14, y: 20}
-  m_SizeDelta: {x: 260, y: 60}
+  m_SizeDelta: {x: 500, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &639897554
 MonoBehaviour:
@@ -4212,7 +4212,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -14, y: 110}
-  m_SizeDelta: {x: 260, y: 60}
+  m_SizeDelta: {x: 500, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1482111488
 MonoBehaviour:
@@ -4768,7 +4768,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e52d423956b0e4c45b5d5aea75766a89, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  apiKey: AIzaSyByA7ORUTIKLiWppJwg8KlPRRkee3n-P_4
+  apiKey: AIzaSyCty9tN70mvwKxNxFm9bBEYggV464SBkkQ
   model: gemini-2.5-flash
 --- !u!1 &1625274334
 GameObject:
