@@ -1,3 +1,9 @@
+# Node (pptx 생성 스크립트)
+node_modules/
+package.json
+package-lock.json
+make_pptx.js
+
 # Unity generated folders
 /[Ll]ibrary/
 /[Tt]emp/
