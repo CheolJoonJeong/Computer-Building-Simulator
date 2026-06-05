@@ -19,6 +19,17 @@ public class SnapZone : MonoBehaviour
             SetLayerRecursively(instance, LayerMask.NameToLayer("AssembledPart"));
             snappedPart = instance;
             isOccupied = true;
+
+            // 이 슬롯을 targetSlot 으로 가진 버튼을 찾아 연결 + 장착 표시
+            foreach (var ps in FindObjectsOfType<PartSelector>(true))
+            {
+                if (ps.targetSlot == gameObject)
+                {
+                    ownerSelector = ps;
+                    ps.SetAssembled();
+                    break;
+                }
+            }
         }
     }
 
