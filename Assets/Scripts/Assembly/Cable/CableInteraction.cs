@@ -26,9 +26,33 @@ public class CableInteraction : MonoBehaviour
     {
         if (cam == null || !cable.IsInitialized) return;
 
-        if (Input.GetMouseButtonDown(0)) HandleClick();
+        if (Input.GetMouseButtonDown(0))
+        {
+            // Shift+클릭 → 묶기 선택, 일반 클릭 → 정리
+            if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
+                TryBundleSelect();
+            else
+                HandleClick();
+        }
         if (Input.GetKeyDown(KeyCode.G)) ReleaseSelected();
     }
+
+    void TryBundleSelect()
+    {
+        int idx = GetClickedParticle();
+        if (idx >= 0)
+            CableBundler.Instance?.AddSelection(this, idx);
+    }
+
+    // ---- 번들러 연동 ----
+    public Vector3 GetParticleWorld(int i) => cable.GetParticle(i);
+
+    public void ApplyBundle(int particle, Transform anchor)
+    {
+        cable.PinParticle(particle, anchor);
+    }
+
+    public void HighlightBundle(bool on) => cable.SetColor(on ? Color.magenta : Color.white);
 
     void HandleClick()
     {
