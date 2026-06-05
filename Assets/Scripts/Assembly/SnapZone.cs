@@ -32,16 +32,13 @@ public class SnapZone : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            int mask = ~LayerMask.GetMask("Cable");
-            RaycastHit[] hits = Physics.RaycastAll(ray, Mathf.Infinity, mask);
-            foreach (RaycastHit h in hits)
+            int mask = ~LayerMask.GetMask("Cable", "Ignore Raycast");
+            RaycastHit hit;
+            if (Physics.Raycast(ray, out hit, Mathf.Infinity, mask))
             {
-                if (h.collider.gameObject == gameObject ||
-                    h.collider.transform.IsChildOf(transform))
-                {
+                if (hit.collider.gameObject == gameObject ||
+                    hit.collider.transform.IsChildOf(transform))
                     TrySnap();
-                    break;
-                }
             }
         }
 
@@ -55,11 +52,7 @@ public class SnapZone : MonoBehaviour
                     || hit.transform == snappedPart.transform)
                 {
                     snappedPart.transform.SetParent(null);
-
-                    Collider[] cols = snappedPart.GetComponentsInChildren<Collider>(true);
-                    foreach (Collider col in cols)
-                        col.enabled = true;
-
+                    SetLayerRecursively(snappedPart, LayerMask.NameToLayer("Default"));
                     snappedPart.SetActive(false);
 
                     foreach (PartSelector ps in FindObjectsOfType<PartSelector>(true))
@@ -112,9 +105,8 @@ public class SnapZone : MonoBehaviour
         selectedPart.transform.rotation = transform.rotation;
         selectedPart.transform.SetParent(transform.parent);
 
-        Collider[] cols = selectedPart.GetComponentsInChildren<Collider>(true);
-        foreach (Collider col in cols)
-            col.enabled = false;
+        // 콜라이더 유지, 레이어만 변경 (클릭은 막고 물리 충돌 유지)
+        SetLayerRecursively(selectedPart, LayerMask.NameToLayer("AssembledPart"));
 
         if (PartSelectionManager.SelectedButton != null)
             PartSelectionManager.SelectedButton.GetComponent<PartSelector>()?.SetAssembled();
@@ -129,5 +121,13 @@ public class SnapZone : MonoBehaviour
     {
         snappedPart = null;
         isOccupied = false;
+    }
+
+    void SetLayerRecursively(GameObject obj, int layer)
+    {
+        if (obj.GetComponent<SnapZone>() != null) return;
+        obj.layer = layer;
+        foreach (Transform child in obj.transform)
+            SetLayerRecursively(child.gameObject, layer);
     }
 }

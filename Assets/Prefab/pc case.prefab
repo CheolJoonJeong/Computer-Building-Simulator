@@ -175,7 +175,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6459207732649481651}
-  m_Layer: 2
+  m_Layer: 6
   m_Name: Front_Box
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -431,8 +431,8 @@ GameObject:
   - component: {fileID: 259341745340802033}
   - component: {fileID: 9210090391795555274}
   - component: {fileID: 4686551664241472083}
-  - component: {fileID: 8721838250732870989}
   - component: {fileID: 711415795731479071}
+  - component: {fileID: 4075454707918006584}
   m_Layer: 0
   m_Name: Tie_Point9
   m_TagString: Untagged
@@ -505,23 +505,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &8721838250732870989
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 482134541716909391}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3f3d9a0e13085314dbe95e21ead32bbb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  snapRadius: 1
-  indicatorScale: 1
-  idleColor: {r: 1, g: 1, b: 1, a: 0.25}
-  highlightColor: {r: 1, g: 0.8, b: 0, a: 0.5}
-  boundColor: {r: 0, g: 1, b: 0.4, a: 0.5}
 --- !u!135 &711415795731479071
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -543,6 +526,22 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.50000006
   m_Center: {x: 0.0000009536743, y: -0.000002861023, z: 0}
+--- !u!114 &4075454707918006584
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 482134541716909391}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f3d9a0e13085314dbe95e21ead32bbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  indicatorScale: 0.06
+  idleColor: {r: 1, g: 1, b: 1, a: 0.25}
+  highlightColor: {r: 1, g: 0.8, b: 0, a: 0.5}
+  boundColor: {r: 0, g: 1, b: 0.4, a: 0.5}
 --- !u!1 &517894132357841869
 GameObject:
   m_ObjectHideFlags: 0
@@ -1084,8 +1083,8 @@ GameObject:
   - component: {fileID: 7069614493385265221}
   - component: {fileID: 5160719008866182905}
   - component: {fileID: 939172628494649819}
-  - component: {fileID: 3163846958411997537}
   - component: {fileID: 4340488164024189552}
+  - component: {fileID: 2516482497106795738}
   m_Layer: 0
   m_Name: Tie_Point6
   m_TagString: Untagged
@@ -1158,23 +1157,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &3163846958411997537
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 663705267086057445}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3f3d9a0e13085314dbe95e21ead32bbb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  snapRadius: 1
-  indicatorScale: 1
-  idleColor: {r: 1, g: 1, b: 1, a: 0.25}
-  highlightColor: {r: 1, g: 0.8, b: 0, a: 0.5}
-  boundColor: {r: 0, g: 1, b: 0.4, a: 0.5}
 --- !u!135 &4340488164024189552
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -1196,6 +1178,22 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.50000006
   m_Center: {x: 0, y: 0.0000019073486, z: 0}
+--- !u!114 &2516482497106795738
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 663705267086057445}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f3d9a0e13085314dbe95e21ead32bbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  indicatorScale: 0.06
+  idleColor: {r: 1, g: 1, b: 1, a: 0.25}
+  highlightColor: {r: 1, g: 0.8, b: 0, a: 0.5}
+  boundColor: {r: 0, g: 1, b: 0.4, a: 0.5}
 --- !u!1 &694610028487355507
 GameObject:
   m_ObjectHideFlags: 0
@@ -1849,8 +1847,8 @@ Transform:
   m_GameObject: {fileID: 1109259461841654846}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.21, y: -3.028, z: -0.30468997}
-  m_LocalScale: {x: 0.9752133, y: 0.3743618, z: 0.124354646}
+  m_LocalPosition: {x: 0.21, y: -3.028, z: -0.33755}
+  m_LocalScale: {x: 0.9752133, y: 0.3743618, z: 0.058812555}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6814620593159875410}
@@ -2052,8 +2050,8 @@ GameObject:
   - component: {fileID: 9183804857362958845}
   - component: {fileID: 2239766707384367286}
   - component: {fileID: 8763348792206555684}
-  - component: {fileID: 7786042081340862650}
   - component: {fileID: 5415177861512396076}
+  - component: {fileID: 5147209617533109093}
   m_Layer: 0
   m_Name: Tie_Point10
   m_TagString: Untagged
@@ -2126,23 +2124,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &7786042081340862650
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1172582715649544151}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3f3d9a0e13085314dbe95e21ead32bbb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  snapRadius: 1
-  indicatorScale: 1
-  idleColor: {r: 1, g: 1, b: 1, a: 0.25}
-  highlightColor: {r: 1, g: 0.8, b: 0, a: 0.5}
-  boundColor: {r: 0, g: 1, b: 0.4, a: 0.5}
 --- !u!135 &5415177861512396076
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -2164,6 +2145,22 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.50000006
   m_Center: {x: 0, y: -0.000002861023, z: 0}
+--- !u!114 &5147209617533109093
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1172582715649544151}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f3d9a0e13085314dbe95e21ead32bbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  indicatorScale: 0.06
+  idleColor: {r: 1, g: 1, b: 1, a: 0.25}
+  highlightColor: {r: 1, g: 0.8, b: 0, a: 0.5}
+  boundColor: {r: 0, g: 1, b: 0.4, a: 0.5}
 --- !u!1 &1208527913125959373
 GameObject:
   m_ObjectHideFlags: 0
@@ -2542,8 +2539,8 @@ GameObject:
   - component: {fileID: 7847762968471980042}
   - component: {fileID: 3945697275786264343}
   - component: {fileID: 3112417167877257049}
-  - component: {fileID: 4035182655250483268}
   - component: {fileID: 4430255496826715274}
+  - component: {fileID: 1054041626045403775}
   m_Layer: 0
   m_Name: Tie_Point1
   m_TagString: Untagged
@@ -2616,23 +2613,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &4035182655250483268
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1342172484730647120}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3f3d9a0e13085314dbe95e21ead32bbb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  snapRadius: 1
-  indicatorScale: 1
-  idleColor: {r: 1, g: 1, b: 1, a: 0.25}
-  highlightColor: {r: 1, g: 0.8, b: 0, a: 0.5}
-  boundColor: {r: 0, g: 1, b: 0.4, a: 0.5}
 --- !u!135 &4430255496826715274
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -2654,6 +2634,22 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.50000006
   m_Center: {x: 0, y: -0.0000038146973, z: 0}
+--- !u!114 &1054041626045403775
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1342172484730647120}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f3d9a0e13085314dbe95e21ead32bbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  indicatorScale: 0.06
+  idleColor: {r: 1, g: 1, b: 1, a: 0.25}
+  highlightColor: {r: 1, g: 0.8, b: 0, a: 0.5}
+  boundColor: {r: 0, g: 1, b: 0.4, a: 0.5}
 --- !u!1 &1360165957792381284
 GameObject:
   m_ObjectHideFlags: 0
@@ -2880,8 +2876,8 @@ Transform:
   m_GameObject: {fileID: 1429849868974478695}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.444, y: -3.412, z: -0.2948}
-  m_LocalScale: {x: 0.33196065, y: 1.2251933, z: 0.087751046}
+  m_LocalPosition: {x: -0.444, y: -3.412, z: -0.316}
+  m_LocalScale: {x: 0.33196065, y: 1.2251933, z: 0.04150117}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6814620593159875410}
@@ -3151,7 +3147,7 @@ GameObject:
   - component: {fileID: 3643899616745149748}
   - component: {fileID: 7701105688801971773}
   - component: {fileID: 7043027364196469348}
-  m_Layer: 2
+  m_Layer: 6
   m_Name: Object_76
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3349,7 +3345,7 @@ GameObject:
   - component: {fileID: 5271588670761015288}
   - component: {fileID: 3457229021658921066}
   - component: {fileID: 6164264264709771310}
-  m_Layer: 2
+  m_Layer: 6
   m_Name: Object_114
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3432,8 +3428,8 @@ GameObject:
   - component: {fileID: 9015929552456299515}
   - component: {fileID: 8969730858445750572}
   - component: {fileID: 3008332877377656183}
-  - component: {fileID: 107336434133399881}
   - component: {fileID: 9067959144633916399}
+  - component: {fileID: 4447086499817543450}
   m_Layer: 0
   m_Name: Tie_Point2
   m_TagString: Untagged
@@ -3506,23 +3502,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &107336434133399881
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1749157558200701440}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3f3d9a0e13085314dbe95e21ead32bbb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  snapRadius: 1
-  indicatorScale: 1
-  idleColor: {r: 1, g: 1, b: 1, a: 0.25}
-  highlightColor: {r: 1, g: 0.8, b: 0, a: 0.5}
-  boundColor: {r: 0, g: 1, b: 0.4, a: 0.5}
 --- !u!135 &9067959144633916399
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -3544,6 +3523,22 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.50000006
   m_Center: {x: 0, y: -0.0000038146973, z: 0}
+--- !u!114 &4447086499817543450
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1749157558200701440}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f3d9a0e13085314dbe95e21ead32bbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  indicatorScale: 0.06
+  idleColor: {r: 1, g: 1, b: 1, a: 0.25}
+  highlightColor: {r: 1, g: 0.8, b: 0, a: 0.5}
+  boundColor: {r: 0, g: 1, b: 0.4, a: 0.5}
 --- !u!1 &1818259545513403161
 GameObject:
   m_ObjectHideFlags: 0
@@ -3721,7 +3716,7 @@ GameObject:
   - component: {fileID: 5955710009715716067}
   - component: {fileID: 6217832429013811698}
   - component: {fileID: 8211045868805996444}
-  m_Layer: 2
+  m_Layer: 6
   m_Name: Object_78
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4269,8 +4264,8 @@ GameObject:
   - component: {fileID: 6330404692610872181}
   - component: {fileID: 5015774976307596343}
   - component: {fileID: 3398698839171421917}
-  - component: {fileID: 6250044441301797530}
   - component: {fileID: 9115145759638657201}
+  - component: {fileID: 614465094146993558}
   m_Layer: 0
   m_Name: Tie_Point17
   m_TagString: Untagged
@@ -4343,23 +4338,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &6250044441301797530
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2255782616030535093}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3f3d9a0e13085314dbe95e21ead32bbb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  snapRadius: 1
-  indicatorScale: 1
-  idleColor: {r: 1, g: 1, b: 1, a: 0.25}
-  highlightColor: {r: 1, g: 0.8, b: 0, a: 0.5}
-  boundColor: {r: 0, g: 1, b: 0.4, a: 0.5}
 --- !u!135 &9115145759638657201
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -4381,6 +4359,22 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.50000006
   m_Center: {x: -0.0000009536743, y: 0, z: 0}
+--- !u!114 &614465094146993558
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2255782616030535093}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f3d9a0e13085314dbe95e21ead32bbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  indicatorScale: 0.06
+  idleColor: {r: 1, g: 1, b: 1, a: 0.25}
+  highlightColor: {r: 1, g: 0.8, b: 0, a: 0.5}
+  boundColor: {r: 0, g: 1, b: 0.4, a: 0.5}
 --- !u!1 &2312867178537981835
 GameObject:
   m_ObjectHideFlags: 0
@@ -4559,7 +4553,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6488112518290586301}
-  m_Layer: 2
+  m_Layer: 6
   m_Name: Collider_Box
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5004,8 +4998,8 @@ GameObject:
   - component: {fileID: 7740385153651010905}
   - component: {fileID: 6128065856264205537}
   - component: {fileID: 2014067695710222439}
-  - component: {fileID: 8933626178518588111}
   - component: {fileID: 1768054512478169230}
+  - component: {fileID: 1957359720505934634}
   m_Layer: 0
   m_Name: Tie_Point13
   m_TagString: Untagged
@@ -5078,23 +5072,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &8933626178518588111
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2787975764781707815}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3f3d9a0e13085314dbe95e21ead32bbb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  snapRadius: 1
-  indicatorScale: 1
-  idleColor: {r: 1, g: 1, b: 1, a: 0.25}
-  highlightColor: {r: 1, g: 0.8, b: 0, a: 0.5}
-  boundColor: {r: 0, g: 1, b: 0.4, a: 0.5}
 --- !u!135 &1768054512478169230
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -5116,6 +5093,22 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.50000006
   m_Center: {x: 0, y: -0.0000009536743, z: 0}
+--- !u!114 &1957359720505934634
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2787975764781707815}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f3d9a0e13085314dbe95e21ead32bbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  indicatorScale: 0.06
+  idleColor: {r: 1, g: 1, b: 1, a: 0.25}
+  highlightColor: {r: 1, g: 0.8, b: 0, a: 0.5}
+  boundColor: {r: 0, g: 1, b: 0.4, a: 0.5}
 --- !u!1 &2840169311966995087
 GameObject:
   m_ObjectHideFlags: 0
@@ -5244,7 +5237,7 @@ GameObject:
   - component: {fileID: 3164562505859813732}
   - component: {fileID: 6711307831194607707}
   - component: {fileID: 7376296559887624243}
-  m_Layer: 2
+  m_Layer: 6
   m_Name: psuCoverPanelSlot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5543,7 +5536,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3871633023113897440}
   - component: {fileID: 5510931285166615907}
-  m_Layer: 2
+  m_Layer: 6
   m_Name: Top_Box
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6116,7 +6109,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7284253076056548936}
   - component: {fileID: 8865583435318802091}
-  m_Layer: 2
+  m_Layer: 6
   m_Name: Front_Box1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6432,8 +6425,8 @@ GameObject:
   - component: {fileID: 5041904310532356605}
   - component: {fileID: 7500490164094619638}
   - component: {fileID: 2765158267328106668}
-  - component: {fileID: 9175198990059110077}
   - component: {fileID: 2243007391187862782}
+  - component: {fileID: 6700124970830629675}
   m_Layer: 0
   m_Name: Tie_Point4
   m_TagString: Untagged
@@ -6506,23 +6499,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &9175198990059110077
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4012825085299027546}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3f3d9a0e13085314dbe95e21ead32bbb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  snapRadius: 1
-  indicatorScale: 1
-  idleColor: {r: 1, g: 1, b: 1, a: 0.25}
-  highlightColor: {r: 1, g: 0.8, b: 0, a: 0.5}
-  boundColor: {r: 0, g: 1, b: 0.4, a: 0.5}
 --- !u!135 &2243007391187862782
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -6544,6 +6520,22 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.50000006
   m_Center: {x: 0, y: -0.0000038146973, z: 0}
+--- !u!114 &6700124970830629675
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4012825085299027546}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f3d9a0e13085314dbe95e21ead32bbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  indicatorScale: 0.06
+  idleColor: {r: 1, g: 1, b: 1, a: 0.25}
+  highlightColor: {r: 1, g: 0.8, b: 0, a: 0.5}
+  boundColor: {r: 0, g: 1, b: 0.4, a: 0.5}
 --- !u!1 &4109244210417868732
 GameObject:
   m_ObjectHideFlags: 0
@@ -6954,8 +6946,7 @@ GameObject:
   - component: {fileID: 4109506921262596678}
   - component: {fileID: 1249116387716356787}
   - component: {fileID: 739773578621618394}
-  - component: {fileID: 141301877370704756}
-  - component: {fileID: 4590411476137871813}
+  - component: {fileID: 6342436038518390248}
   m_Layer: 0
   m_Name: Pass_Through_Point2
   m_TagString: Untagged
@@ -7049,20 +7040,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &141301877370704756
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4463116753658692448}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2287379d9b6a5124eb26b852f5adaa8d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  particleOffset: 1
---- !u!114 &4590411476137871813
+--- !u!114 &6342436038518390248
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -7074,7 +7052,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2087b817fd5c4cc4787014c8bb036434, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  highlightOnPending: 1
   holeRenderer: {fileID: 0}
   idleColor: {r: 1, g: 1, b: 1, a: 0.3}
   highlightColor: {r: 1, g: 0.8, b: 0, a: 0.6}
@@ -7153,7 +7130,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1374366549466490448}
   - component: {fileID: 7111713224804065093}
-  m_Layer: 2
+  m_Layer: 6
   m_Name: Inner_Box
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7993,8 +7970,8 @@ GameObject:
   - component: {fileID: 6567559234065451936}
   - component: {fileID: 1779870666515943055}
   - component: {fileID: 1858372659077451588}
-  - component: {fileID: 6798921382597711307}
   - component: {fileID: 7435375919105612466}
+  - component: {fileID: 3670808582330544851}
   m_Layer: 0
   m_Name: Tie_Point15
   m_TagString: Untagged
@@ -8067,23 +8044,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &6798921382597711307
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5079415500550958500}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3f3d9a0e13085314dbe95e21ead32bbb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  snapRadius: 1
-  indicatorScale: 1
-  idleColor: {r: 1, g: 1, b: 1, a: 0.25}
-  highlightColor: {r: 1, g: 0.8, b: 0, a: 0.5}
-  boundColor: {r: 0, g: 1, b: 0.4, a: 0.5}
 --- !u!135 &7435375919105612466
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -8105,6 +8065,22 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.50000006
   m_Center: {x: 0, y: -0.0000019073486, z: 0}
+--- !u!114 &3670808582330544851
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5079415500550958500}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f3d9a0e13085314dbe95e21ead32bbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  indicatorScale: 0.06
+  idleColor: {r: 1, g: 1, b: 1, a: 0.25}
+  highlightColor: {r: 1, g: 0.8, b: 0, a: 0.5}
+  boundColor: {r: 0, g: 1, b: 0.4, a: 0.5}
 --- !u!1 &5168710501982178948
 GameObject:
   m_ObjectHideFlags: 0
@@ -8510,8 +8486,8 @@ GameObject:
   - component: {fileID: 8795828436811516043}
   - component: {fileID: 1543246625999814579}
   - component: {fileID: 5553075718635855752}
-  - component: {fileID: 1494179212984608080}
   - component: {fileID: 2039837976501290158}
+  - component: {fileID: 1009751414616439193}
   m_Layer: 0
   m_Name: Tie_Point8
   m_TagString: Untagged
@@ -8584,23 +8560,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &1494179212984608080
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5271089310464502333}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3f3d9a0e13085314dbe95e21ead32bbb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  snapRadius: 1
-  indicatorScale: 1
-  idleColor: {r: 1, g: 1, b: 1, a: 0.25}
-  highlightColor: {r: 1, g: 0.8, b: 0, a: 0.5}
-  boundColor: {r: 0, g: 1, b: 0.4, a: 0.5}
 --- !u!135 &2039837976501290158
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -8622,6 +8581,22 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.50000006
   m_Center: {x: 0, y: 0.0000019073486, z: 0}
+--- !u!114 &1009751414616439193
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5271089310464502333}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f3d9a0e13085314dbe95e21ead32bbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  indicatorScale: 0.06
+  idleColor: {r: 1, g: 1, b: 1, a: 0.25}
+  highlightColor: {r: 1, g: 0.8, b: 0, a: 0.5}
+  boundColor: {r: 0, g: 1, b: 0.4, a: 0.5}
 --- !u!1 &5287492852665489422
 GameObject:
   m_ObjectHideFlags: 0
@@ -9208,8 +9183,8 @@ GameObject:
   - component: {fileID: 6429338951856633956}
   - component: {fileID: 7735644211487111143}
   - component: {fileID: 4872666885838539960}
-  - component: {fileID: 7523686306049262576}
   - component: {fileID: 5338523991945820537}
+  - component: {fileID: 4372311940656946134}
   m_Layer: 0
   m_Name: Tie_Point14
   m_TagString: Untagged
@@ -9282,23 +9257,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &7523686306049262576
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5992779442303128724}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3f3d9a0e13085314dbe95e21ead32bbb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  snapRadius: 1
-  indicatorScale: 1
-  idleColor: {r: 1, g: 1, b: 1, a: 0.25}
-  highlightColor: {r: 1, g: 0.8, b: 0, a: 0.5}
-  boundColor: {r: 0, g: 1, b: 0.4, a: 0.5}
 --- !u!135 &5338523991945820537
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -9320,6 +9278,22 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.50000006
   m_Center: {x: 0, y: -0.0000009536743, z: 0}
+--- !u!114 &4372311940656946134
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5992779442303128724}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f3d9a0e13085314dbe95e21ead32bbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  indicatorScale: 0.06
+  idleColor: {r: 1, g: 1, b: 1, a: 0.25}
+  highlightColor: {r: 1, g: 0.8, b: 0, a: 0.5}
+  boundColor: {r: 0, g: 1, b: 0.4, a: 0.5}
 --- !u!1 &6036788573593048943
 GameObject:
   m_ObjectHideFlags: 0
@@ -9331,8 +9305,8 @@ GameObject:
   - component: {fileID: 7304495608016910612}
   - component: {fileID: 2253077968485935889}
   - component: {fileID: 707424576826554832}
-  - component: {fileID: 3786679628810493164}
   - component: {fileID: 2583547628966004156}
+  - component: {fileID: 2922515894674659708}
   m_Layer: 0
   m_Name: Tie_Point3
   m_TagString: Untagged
@@ -9405,23 +9379,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &3786679628810493164
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6036788573593048943}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3f3d9a0e13085314dbe95e21ead32bbb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  snapRadius: 1
-  indicatorScale: 1
-  idleColor: {r: 1, g: 1, b: 1, a: 0.25}
-  highlightColor: {r: 1, g: 0.8, b: 0, a: 0.5}
-  boundColor: {r: 0, g: 1, b: 0.4, a: 0.5}
 --- !u!135 &2583547628966004156
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -9443,6 +9400,22 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.50000006
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &2922515894674659708
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6036788573593048943}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f3d9a0e13085314dbe95e21ead32bbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  indicatorScale: 0.06
+  idleColor: {r: 1, g: 1, b: 1, a: 0.25}
+  highlightColor: {r: 1, g: 0.8, b: 0, a: 0.5}
+  boundColor: {r: 0, g: 1, b: 0.4, a: 0.5}
 --- !u!1 &6049450967565764430
 GameObject:
   m_ObjectHideFlags: 0
@@ -9471,8 +9444,8 @@ Transform:
   m_GameObject: {fileID: 6049450967565764430}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.19, y: -3.901, z: -0.30468997}
-  m_LocalScale: {x: 0.9798062, y: 0.1569083, z: 0.12435908}
+  m_LocalPosition: {x: 0.19, y: -3.901, z: -0.33755}
+  m_LocalScale: {x: 0.9798062, y: 0.1569083, z: 0.05881465}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6814620593159875410}
@@ -9757,8 +9730,8 @@ GameObject:
   - component: {fileID: 4815630326791159839}
   - component: {fileID: 5066772430818350370}
   - component: {fileID: 3921394877104969143}
-  - component: {fileID: 82580605584012572}
   - component: {fileID: 2270479181659618517}
+  - component: {fileID: 6274789726471109261}
   m_Layer: 0
   m_Name: Tie_Point7
   m_TagString: Untagged
@@ -9831,23 +9804,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &82580605584012572
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6197146505816201980}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3f3d9a0e13085314dbe95e21ead32bbb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  snapRadius: 1
-  indicatorScale: 1
-  idleColor: {r: 1, g: 1, b: 1, a: 0.25}
-  highlightColor: {r: 1, g: 0.8, b: 0, a: 0.5}
-  boundColor: {r: 0, g: 1, b: 0.4, a: 0.5}
 --- !u!135 &2270479181659618517
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -9869,6 +9825,22 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.50000006
   m_Center: {x: 0.0000009536743, y: 0, z: 0}
+--- !u!114 &6274789726471109261
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6197146505816201980}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f3d9a0e13085314dbe95e21ead32bbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  indicatorScale: 0.06
+  idleColor: {r: 1, g: 1, b: 1, a: 0.25}
+  highlightColor: {r: 1, g: 0.8, b: 0, a: 0.5}
+  boundColor: {r: 0, g: 1, b: 0.4, a: 0.5}
 --- !u!1 &6225817831826417549
 GameObject:
   m_ObjectHideFlags: 0
@@ -9880,8 +9852,8 @@ GameObject:
   - component: {fileID: 5079426702594042873}
   - component: {fileID: 7793015505143016022}
   - component: {fileID: 4180034246960765978}
-  - component: {fileID: 7618529753457858697}
   - component: {fileID: 8565565245648629990}
+  - component: {fileID: 2642943491166544050}
   m_Layer: 0
   m_Name: Tie_Point16
   m_TagString: Untagged
@@ -9954,23 +9926,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &7618529753457858697
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6225817831826417549}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3f3d9a0e13085314dbe95e21ead32bbb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  snapRadius: 1
-  indicatorScale: 1
-  idleColor: {r: 1, g: 1, b: 1, a: 0.25}
-  highlightColor: {r: 1, g: 0.8, b: 0, a: 0.5}
-  boundColor: {r: 0, g: 1, b: 0.4, a: 0.5}
 --- !u!135 &8565565245648629990
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -9992,6 +9947,22 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.50000006
   m_Center: {x: 0, y: -0.0000019073486, z: 0}
+--- !u!114 &2642943491166544050
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6225817831826417549}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f3d9a0e13085314dbe95e21ead32bbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  indicatorScale: 0.06
+  idleColor: {r: 1, g: 1, b: 1, a: 0.25}
+  highlightColor: {r: 1, g: 0.8, b: 0, a: 0.5}
+  boundColor: {r: 0, g: 1, b: 0.4, a: 0.5}
 --- !u!1 &6627063175086953500
 GameObject:
   m_ObjectHideFlags: 0
@@ -10202,8 +10173,7 @@ GameObject:
   - component: {fileID: 3452478126825178834}
   - component: {fileID: 48448583450358161}
   - component: {fileID: 3979488826679292397}
-  - component: {fileID: 3270851451025519692}
-  - component: {fileID: 4013266589289634248}
+  - component: {fileID: 8839599702550343805}
   m_Layer: 0
   m_Name: Pass_Through_Point1
   m_TagString: Untagged
@@ -10297,20 +10267,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &3270851451025519692
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6725727574680901064}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2287379d9b6a5124eb26b852f5adaa8d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  particleOffset: 1
---- !u!114 &4013266589289634248
+--- !u!114 &8839599702550343805
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -10322,7 +10279,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2087b817fd5c4cc4787014c8bb036434, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  highlightOnPending: 1
   holeRenderer: {fileID: 0}
   idleColor: {r: 1, g: 1, b: 1, a: 0.3}
   highlightColor: {r: 1, g: 0.8, b: 0, a: 0.6}
@@ -11181,8 +11137,8 @@ GameObject:
   - component: {fileID: 9120428586460580332}
   - component: {fileID: 6333730974024648785}
   - component: {fileID: 393477322490020513}
-  - component: {fileID: 4205218365890255496}
   - component: {fileID: 975951215881844761}
+  - component: {fileID: 768913763406442042}
   m_Layer: 0
   m_Name: Tie_Point11
   m_TagString: Untagged
@@ -11255,23 +11211,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &4205218365890255496
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6972436939849240489}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3f3d9a0e13085314dbe95e21ead32bbb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  snapRadius: 1
-  indicatorScale: 1
-  idleColor: {r: 1, g: 1, b: 1, a: 0.25}
-  highlightColor: {r: 1, g: 0.8, b: 0, a: 0.5}
-  boundColor: {r: 0, g: 1, b: 0.4, a: 0.5}
 --- !u!135 &975951215881844761
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -11293,6 +11232,22 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.50000006
   m_Center: {x: 0, y: -0.000002861023, z: 0}
+--- !u!114 &768913763406442042
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6972436939849240489}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f3d9a0e13085314dbe95e21ead32bbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  indicatorScale: 0.06
+  idleColor: {r: 1, g: 1, b: 1, a: 0.25}
+  highlightColor: {r: 1, g: 0.8, b: 0, a: 0.5}
+  boundColor: {r: 0, g: 1, b: 0.4, a: 0.5}
 --- !u!1 &6997653380589577477
 GameObject:
   m_ObjectHideFlags: 0
@@ -11304,8 +11259,8 @@ GameObject:
   - component: {fileID: 7930779642727711323}
   - component: {fileID: 6985874303622900988}
   - component: {fileID: 628228753710177390}
-  - component: {fileID: 6948436888976707956}
   - component: {fileID: 7759288774430809963}
+  - component: {fileID: 6602536734479045084}
   m_Layer: 0
   m_Name: Tie_Point5
   m_TagString: Untagged
@@ -11378,23 +11333,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &6948436888976707956
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6997653380589577477}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3f3d9a0e13085314dbe95e21ead32bbb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  snapRadius: 1
-  indicatorScale: 1
-  idleColor: {r: 1, g: 1, b: 1, a: 0.25}
-  highlightColor: {r: 1, g: 0.8, b: 0, a: 0.5}
-  boundColor: {r: 0, g: 1, b: 0.4, a: 0.5}
 --- !u!135 &7759288774430809963
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -11416,6 +11354,22 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.50000006
   m_Center: {x: 0.00000011920929, y: 0.0000019073486, z: 0}
+--- !u!114 &6602536734479045084
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6997653380589577477}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f3d9a0e13085314dbe95e21ead32bbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  indicatorScale: 0.06
+  idleColor: {r: 1, g: 1, b: 1, a: 0.25}
+  highlightColor: {r: 1, g: 0.8, b: 0, a: 0.5}
+  boundColor: {r: 0, g: 1, b: 0.4, a: 0.5}
 --- !u!1 &7008073559123453045
 GameObject:
   m_ObjectHideFlags: 0
@@ -12220,7 +12174,7 @@ GameObject:
   - component: {fileID: 6163660372720018038}
   - component: {fileID: 225954314178948716}
   - component: {fileID: 5590403043754997538}
-  m_Layer: 2
+  m_Layer: 6
   m_Name: caseFrontPanelSlot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13209,7 +13163,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4421308950899254209}
-  m_Layer: 2
+  m_Layer: 6
   m_Name: Plane.037_55
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13244,7 +13198,7 @@ GameObject:
   - component: {fileID: 3699374286668972563}
   - component: {fileID: 755709341010932516}
   - component: {fileID: 5602257114850126423}
-  m_Layer: 2
+  m_Layer: 6
   m_Name: caseBackPanelSlot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13327,7 +13281,7 @@ GameObject:
   - component: {fileID: 6072728180923640278}
   - component: {fileID: 6862335238924822197}
   - component: {fileID: 4914859191203445933}
-  m_Layer: 2
+  m_Layer: 6
   m_Name: Object_128
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13674,8 +13628,8 @@ GameObject:
   - component: {fileID: 5802413819706292394}
   - component: {fileID: 2112965673379913622}
   - component: {fileID: 2451669494939043048}
-  - component: {fileID: 270766311022301319}
   - component: {fileID: 4285976723895761729}
+  - component: {fileID: 4692044937276088175}
   m_Layer: 0
   m_Name: Tie_Point12
   m_TagString: Untagged
@@ -13748,23 +13702,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &270766311022301319
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8021529827877492686}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3f3d9a0e13085314dbe95e21ead32bbb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  snapRadius: 1
-  indicatorScale: 1
-  idleColor: {r: 1, g: 1, b: 1, a: 0.25}
-  highlightColor: {r: 1, g: 0.8, b: 0, a: 0.5}
-  boundColor: {r: 0, g: 1, b: 0.4, a: 0.5}
 --- !u!135 &4285976723895761729
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -13786,6 +13723,22 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.50000006
   m_Center: {x: 0, y: -0.000002861023, z: 0}
+--- !u!114 &4692044937276088175
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8021529827877492686}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f3d9a0e13085314dbe95e21ead32bbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  indicatorScale: 0.06
+  idleColor: {r: 1, g: 1, b: 1, a: 0.25}
+  highlightColor: {r: 1, g: 0.8, b: 0, a: 0.5}
+  boundColor: {r: 0, g: 1, b: 0.4, a: 0.5}
 --- !u!1 &8065237327436281091
 GameObject:
   m_ObjectHideFlags: 0
@@ -14872,7 +14825,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3202644315950840889}
   - component: {fileID: 2740665450234803003}
-  m_Layer: 2
+  m_Layer: 6
   m_Name: Front_Box2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15026,8 +14979,8 @@ Transform:
   m_GameObject: {fileID: 9077823784338026928}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.253, y: -3.5396, z: -0.30468997}
-  m_LocalScale: {x: 0.8992179, y: 0.74340576, z: 0.124354646}
+  m_LocalPosition: {x: 0.253, y: -3.5396, z: -0.33755}
+  m_LocalScale: {x: 0.8992179, y: 0.74340576, z: 0.058812555}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6814620593159875410}

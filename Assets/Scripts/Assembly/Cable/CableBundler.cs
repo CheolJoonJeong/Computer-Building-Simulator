@@ -1,15 +1,12 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-// 케이블 묶기 관리자 — 씬에 하나만 배치
-// 클릭으로 케이블 선택, B키로 묶기
+// B키로 여러 케이블 묶기
 public class CableBundler : MonoBehaviour
 {
     public static CableBundler Instance { get; private set; }
 
-    [SerializeField] private Color selectedColor = Color.cyan;
-
-    private readonly List<CableDragInteraction> selectedCables = new();
+    private readonly List<CableInteraction> selected = new();
 
     void Awake()
     {
@@ -19,63 +16,38 @@ public class CableBundler : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.B) && selectedCables.Count >= 2)
-            BundleSelected();
+        if (Input.GetKeyDown(KeyCode.B) && selected.Count >= 2)
+            Bundle();
     }
 
-    // CableDragInteraction에서 클릭(드래그 없이) 시 호출
-    public void ToggleSelect(CableDragInteraction cable)
+    public void Toggle(CableInteraction cable)
     {
-        if (selectedCables.Contains(cable))
-        {
-            selectedCables.Remove(cable);
-            cable.SetLineColor(Color.white);
-        }
-        else
-        {
-            selectedCables.Add(cable);
-            cable.SetLineColor(selectedColor);
-        }
+        if (selected.Contains(cable)) { selected.Remove(cable); cable.SetColor(Color.white); }
+        else { selected.Add(cable); cable.SetColor(Color.cyan); }
     }
 
-    void BundleSelected()
+    void Bundle()
     {
-        // 선택된 케이블들 중 타이포인트에 고정된 것 찾기
-        CableTiePoint targetTie = null;
-        foreach (var cable in selectedCables)
+        // 선택된 케이블들의 중간 위치로 모으기
+        Vector3 avg = Vector3.zero;
+        foreach (var c in selected)
         {
-            var tie = cable.BoundTiePoint;
-            if (tie != null) { targetTie = tie; break; }
+            var lr = c.GetComponent<LineRenderer>();
+            if (lr != null && lr.positionCount > 0)
+                avg += lr.GetPosition(lr.positionCount / 2);
+        }
+        avg /= selected.Count;
+
+        // 가장 가까운 타이포인트 찾기
+        CableTiePoint best = null;
+        float bestDist = float.MaxValue;
+        foreach (var tie in CableTiePoint.All)
+        {
+            float d = Vector3.Distance(avg, tie.transform.position);
+            if (d < bestDist) { bestDist = d; best = tie; }
         }
 
-        // 타이포인트가 없으면 선택 케이블들의 중간 평균 위치로 모으기
-        if (targetTie == null)
-        {
-            Vector3 avg = Vector3.zero;
-            int count = 0;
-            foreach (var cable in selectedCables)
-            {
-                if (cable.MidParticlePosition.HasValue)
-                {
-                    avg += cable.MidParticlePosition.Value;
-                    count++;
-                }
-            }
-            if (count == 0) return;
-            avg /= count;
-
-            foreach (var cable in selectedCables)
-                cable.SnapMidToPosition(avg);
-        }
-        else
-        {
-            foreach (var cable in selectedCables)
-                cable.SnapMidToTiePoint(targetTie);
-        }
-
-        // 선택 해제
-        foreach (var cable in selectedCables)
-            cable.SetLineColor(Color.white);
-        selectedCables.Clear();
+        foreach (var c in selected) c.SetColor(Color.white);
+        selected.Clear();
     }
 }
