@@ -17,8 +17,20 @@ public static class CableBuilder
     [MenuItem("Tools/Cable/Create Cable Object (Fan)")]
     static void CreateFan() => Build("Cable_Fan", CableType.FanHeader, 0.005f);
 
-    [MenuItem("Tools/Cable/Create Cable Object (Front Panel)")]
-    static void CreateFront() => Build("Cable_FrontPanel", CableType.FrontPanel, 0.004f);
+    [MenuItem("Tools/Cable/Create Cable Object (PWRSW)")]
+    static void CreatePwr() => Build("Cable_PWRSW", CableType.PWRSW, 0.004f);
+
+    [MenuItem("Tools/Cable/Create Cable Object (RESET)")]
+    static void CreateReset() => Build("Cable_RESET", CableType.RESET, 0.004f);
+
+    [MenuItem("Tools/Cable/Create Cable Object (PLED)")]
+    static void CreatePled() => Build("Cable_PLED", CableType.PLED, 0.004f);
+
+    [MenuItem("Tools/Cable/Create Cable Object (HDD_LED)")]
+    static void CreateHdd() => Build("Cable_HDD_LED", CableType.HDD_LED, 0.004f);
+
+    [MenuItem("Tools/Cable/Create Cable Object (Front USB3)")]
+    static void CreateUsb() => Build("Cable_FrontUSB3", CableType.FrontUSB3, 0.008f);
 
     static void Build(string name, CableType type, float headSize)
     {
