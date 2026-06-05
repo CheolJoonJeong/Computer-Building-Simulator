@@ -1,7 +1,8 @@
 using UnityEngine;
 
 // 파츠에 붙이는 케이블 소켓 (클릭으로 연결)
-// Collider는 이 오브젝트에 직접 두거나, 자식에 두고 CableSocketClickRelay로 전달
+// 구조: Socket(CableSocket + Collider) -> Visual(메시만)
+[RequireComponent(typeof(Collider))]
 public class CableSocket : MonoBehaviour
 {
     [SerializeField] private CableType cableType;
@@ -24,10 +25,7 @@ public class CableSocket : MonoBehaviour
         SetColor(hl ? highlightColor : idleColor);
     }
 
-    void OnMouseDown() => HandleClick();
-
-    // 자식 Relay 또는 직접 클릭에서 호출
-    public void HandleClick()
+    void OnMouseDown()
     {
         if (IsOccupied) return;
         CableManager.Instance?.OnSocketClicked(this);
