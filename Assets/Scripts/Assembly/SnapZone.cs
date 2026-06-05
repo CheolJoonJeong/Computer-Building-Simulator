@@ -4,43 +4,37 @@ public class SnapZone : MonoBehaviour
 {
     public PartType acceptType;
     public bool isOccupied = false;
-    private GameObject snappedPart = null;       // 생성된 인스턴스
-    private PartSelector ownerSelector = null;   // 이 슬롯을 채운 버튼
+    private GameObject snappedPart = null;
 
-    [Header("시작부터 장착")]
     public bool startOccupied = false;
-    public GameObject startPart;                 // 프리팹
+    public GameObject startPart;
 
     void Start()
     {
         if (startOccupied && startPart != null)
         {
-            var instance = Instantiate(startPart, transform.position, transform.rotation, transform.parent);
-            SetLayerRecursively(instance, LayerMask.NameToLayer("AssembledPart"));
-            snappedPart = instance;
-            isOccupied = true;
+            startPart.SetActive(true);
+            startPart.transform.position = transform.position;
+            startPart.transform.rotation = transform.rotation;
+            startPart.transform.SetParent(transform.parent);
 
-            // 이 슬롯을 targetSlot 으로 가진 버튼을 찾아 연결 + 장착 표시
-            foreach (var ps in FindObjectsOfType<PartSelector>(true))
-            {
-                if (ps.targetSlot == gameObject)
-                {
-                    ownerSelector = ps;
-                    ps.SetAssembled();
-                    break;
-                }
-            }
+            Collider[] cols = startPart.GetComponentsInChildren<Collider>(true);
+            foreach (Collider col in cols)
+                col.enabled = false;
+
+            snappedPart = startPart;
+            isOccupied = true;
         }
     }
 
     void Update()
     {
-        // 슬롯 클릭 → 장착
         if (Input.GetMouseButtonDown(0))
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             int mask = ~LayerMask.GetMask("Cable", "Ignore Raycast");
-            if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, mask))
+            RaycastHit hit;
+            if (Physics.Raycast(ray, out hit, Mathf.Infinity, mask))
             {
                 if (hit.collider.gameObject == gameObject ||
                     hit.collider.transform.IsChildOf(transform))
@@ -48,61 +42,84 @@ public class SnapZone : MonoBehaviour
             }
         }
 
-        // R키 → 분리 (장착된 파츠 위에서)
         if (isOccupied && snappedPart != null && Input.GetKeyDown(KeyCode.R))
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            if (Physics.Raycast(ray, out RaycastHit hit))
+            RaycastHit hit;
+            if (Physics.Raycast(ray, out hit))
             {
-                if (hit.transform.IsChildOf(snappedPart.transform) ||
-                    hit.transform == snappedPart.transform)
-                    DetachPart();
+                if (hit.transform.IsChildOf(snappedPart.transform)
+                    || hit.transform == snappedPart.transform)
+                {
+                    snappedPart.transform.SetParent(null);
+                    SetLayerRecursively(snappedPart, LayerMask.NameToLayer("Default"));
+                    snappedPart.SetActive(false);
+
+                    foreach (PartSelector ps in FindObjectsOfType<PartSelector>(true))
+                    {
+                        if (ps.targetPart == snappedPart)
+                        {
+                            ps.SetUnassembled();
+                            break;
+                        }
+                    }
+
+                    snappedPart = null;
+                    isOccupied = false;
+                    Debug.Log("Detached!");
+                }
             }
         }
     }
 
     void TrySnap()
     {
-        if (isOccupied) return;
+        if (isOccupied)
+        {
+            Debug.Log("Already occupied");
+            return;
+        }
 
-        GameObject prefab = PartSelectionManager.SelectedPart;
-        if (prefab == null) return;
+        GameObject selectedPart = PartSelectionManager.SelectedPart;
+        if (selectedPart == null)
+        {
+            Debug.Log("No part selected");
+            return;
+        }
 
-        PartInfo part = prefab.GetComponent<PartInfo>();
-        if (part == null) { Debug.Log("No PartInfo on prefab"); return; }
-        if (part.data.partType != acceptType) { Debug.Log("Type mismatch"); return; }
+        PartInfo part = selectedPart.GetComponent<PartInfo>();
+        if (part == null)
+        {
+            Debug.Log("No PartInfo");
+            return;
+        }
 
-        // 프리팹에서 인스턴스 생성
-        var instance = Instantiate(prefab, transform.position, transform.rotation, transform.parent);
-        SetLayerRecursively(instance, LayerMask.NameToLayer("AssembledPart"));
+        if (part.data.partType != acceptType)
+        {
+            Debug.Log("Type mismatch");
+            return;
+        }
 
-        snappedPart = instance;
+        selectedPart.SetActive(true);
+        selectedPart.transform.position = transform.position;
+        selectedPart.transform.rotation = transform.rotation;
+        selectedPart.transform.SetParent(transform.parent);
+
+        // 콜라이더 유지, 레이어만 변경 (클릭은 막고 물리 충돌 유지)
+        SetLayerRecursively(selectedPart, LayerMask.NameToLayer("AssembledPart"));
+
+        if (PartSelectionManager.SelectedButton != null)
+            PartSelectionManager.SelectedButton.GetComponent<PartSelector>()?.SetAssembled();
+
+        snappedPart = selectedPart;
         isOccupied = true;
-
-        // 버튼 상태 갱신
-        ownerSelector = PartSelectionManager.SelectedButton != null
-            ? PartSelectionManager.SelectedButton.GetComponent<PartSelector>() : null;
-        ownerSelector?.SetAssembled();
-
         PartSelectionManager.Clear();
         Debug.Log("Assembled!");
-    }
-
-    // 인스턴스 파괴 + 버튼 해제
-    public void DetachPart()
-    {
-        if (snappedPart != null) Destroy(snappedPart);
-        ownerSelector?.SetUnassembled();
-        snappedPart = null;
-        ownerSelector = null;
-        isOccupied = false;
-        Debug.Log("Detached!");
     }
 
     public void ForceDetach()
     {
         snappedPart = null;
-        ownerSelector = null;
         isOccupied = false;
     }
 
