@@ -17,6 +17,9 @@ public static class CableBuilder
     [MenuItem("Tools/Cable/Create Cable Object (Fan)")]
     static void CreateFan() => Build("Cable_Fan", CableType.FanHeader, 0.005f);
 
+    [MenuItem("Tools/Cable/Create Cable Object (Front Panel)")]
+    static void CreateFront() => Build("Cable_FrontPanel", CableType.FrontPanel, 0.004f);
+
     static void Build(string name, CableType type, float headSize)
     {
         var root = new GameObject(name);
