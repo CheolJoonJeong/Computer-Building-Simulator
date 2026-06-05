@@ -7,7 +7,7 @@ public class SnapZone : MonoBehaviour
     private GameObject snappedPart = null;
 
     public bool startOccupied = false;
-    public GameObject startPart; // 처음부터 조립할 부품 연결
+    public GameObject startPart;
 
     void Start()
     {
@@ -26,24 +26,25 @@ public class SnapZone : MonoBehaviour
             isOccupied = true;
         }
     }
+
     void Update()
     {
-        // 마우스 클릭
         if (Input.GetMouseButtonDown(0))
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
-            if (Physics.Raycast(ray, out hit))
+            int mask = ~LayerMask.GetMask("Cable");
+            RaycastHit[] hits = Physics.RaycastAll(ray, Mathf.Infinity, mask);
+            foreach (RaycastHit h in hits)
             {
-                if (hit.collider.gameObject == gameObject)
+                if (h.collider.gameObject == gameObject ||
+                    h.collider.transform.IsChildOf(transform))
                 {
-                    Debug.Log("슬롯 클릭됨: " + gameObject.name);
                     TrySnap();
+                    break;
                 }
             }
         }
 
-        // 분리 (R키)
         if (isOccupied && snappedPart != null && Input.GetKeyDown(KeyCode.R))
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -55,8 +56,7 @@ public class SnapZone : MonoBehaviour
                 {
                     snappedPart.transform.SetParent(null);
 
-                    Collider[] cols =
-                        snappedPart.GetComponentsInChildren<Collider>(true);
+                    Collider[] cols = snappedPart.GetComponentsInChildren<Collider>(true);
                     foreach (Collider col in cols)
                         col.enabled = true;
 
@@ -66,14 +66,14 @@ public class SnapZone : MonoBehaviour
                     {
                         if (ps.targetPart == snappedPart)
                         {
-                            ps.SetUnassembled(); // 버튼 다시 밝게
+                            ps.SetUnassembled();
                             break;
                         }
                     }
 
                     snappedPart = null;
                     isOccupied = false;
-                    Debug.Log("분리 완료!");
+                    Debug.Log("Detached!");
                 }
             }
         }
@@ -83,56 +83,48 @@ public class SnapZone : MonoBehaviour
     {
         if (isOccupied)
         {
-            Debug.Log("이미 장착됨");
+            Debug.Log("Already occupied");
             return;
         }
 
         GameObject selectedPart = PartSelectionManager.SelectedPart;
         if (selectedPart == null)
         {
-            Debug.Log("선택된 부품 없음");
+            Debug.Log("No part selected");
             return;
         }
 
         PartInfo part = selectedPart.GetComponent<PartInfo>();
         if (part == null)
         {
-            Debug.Log("PartInfo 없음");
+            Debug.Log("No PartInfo");
             return;
         }
 
         if (part.data.partType != acceptType)
         {
-            Debug.Log("타입 불일치");
+            Debug.Log("Type mismatch");
             return;
         }
 
-        // 부품 활성화
         selectedPart.SetActive(true);
-
-        // 위치 이동
         selectedPart.transform.position = transform.position;
         selectedPart.transform.rotation = transform.rotation;
         selectedPart.transform.SetParent(transform.parent);
 
-        // 모든 Collider 끄기
-        Collider[] cols =
-            selectedPart.GetComponentsInChildren<Collider>(true);
+        Collider[] cols = selectedPart.GetComponentsInChildren<Collider>(true);
         foreach (Collider col in cols)
             col.enabled = false;
 
-        // 버튼 어둡게
         if (PartSelectionManager.SelectedButton != null)
-        {
-            PartSelectionManager.SelectedButton
-                .GetComponent<PartSelector>()?.SetAssembled();
-        }
+            PartSelectionManager.SelectedButton.GetComponent<PartSelector>()?.SetAssembled();
 
         snappedPart = selectedPart;
         isOccupied = true;
         PartSelectionManager.Clear();
-        Debug.Log("장착 완료!");
+        Debug.Log("Assembled!");
     }
+
     public void ForceDetach()
     {
         snappedPart = null;

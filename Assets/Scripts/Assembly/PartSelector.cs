@@ -16,7 +16,6 @@ public class PartSelector : MonoBehaviour
 
     public void SelectPart()
     {
-        // 조립된 상태면 해체
         if (IsAssembled())
         {
             Detach();
@@ -26,7 +25,6 @@ public class PartSelector : MonoBehaviour
         if (PartSelectionManager.SelectedButton == gameObject)
         {
             PartSelectionManager.Clear();
-            Debug.Log("선택 해제됨");
             return;
         }
 
@@ -44,7 +42,6 @@ public class PartSelector : MonoBehaviour
         PartSelectionManager.SelectedPart = targetPart;
         PartSelectionManager.SelectedSlot = targetSlot;
         PartSelectionManager.SelectedButton = gameObject;
-        Debug.Log(targetPart.name + " 선택됨!");
     }
 
     void Detach()
@@ -66,7 +63,6 @@ public class PartSelector : MonoBehaviour
             col.enabled = true;
 
         SetUnassembled();
-        Debug.Log(targetPart.name + " 해체됨!");
     }
 
     public void SetAssembled()

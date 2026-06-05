@@ -3,20 +3,20 @@ using UnityEngine;
 public class Draggable : MonoBehaviour
 {
     public GameObject targetSlot;
-    private static Draggable selectedPart = null;  // ÇöÀç ¼±ÅÃµÈ ºÎÇ°
+    private static Draggable selectedPart = null;  // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ãµï¿½ ï¿½ï¿½Ç°
 
     void OnMouseDown()
     {
-        // ´Ù¸¥ ºÎÇ°ÀÌ ¼±ÅÃµÇ¾î ÀÖ¾úÀ¸¸é ½½·Ô ²ô±â
+        // ï¿½Ù¸ï¿½ ï¿½ï¿½Ç°ï¿½ï¿½ ï¿½ï¿½ï¿½ÃµÇ¾ï¿½ ï¿½Ö¾ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         if (selectedPart != null && selectedPart != this)
             selectedPart.SetRenderers(false);
 
-        // ÀÌ ºÎÇ° ¼±ÅÃ
+        // ï¿½ï¿½ ï¿½ï¿½Ç° ï¿½ï¿½ï¿½ï¿½
         selectedPart = this;
         if (targetSlot != null)
             SetRenderers(true);
 
-        Debug.Log(gameObject.name + " ¼±ÅÃµÊ!");
+        Debug.Log(gameObject.name + " ï¿½ï¿½ï¿½Ãµï¿½!");
     }
 
     public void SetRenderers(bool show)
