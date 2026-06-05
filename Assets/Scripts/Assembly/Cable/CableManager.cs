@@ -1,22 +1,22 @@
 using UnityEngine;
 
-// 케이블 연결 상태 관리 싱글톤
+// 케이블 연결 흐름 관리 싱글톤
+// Idle -> TypeSelected(버튼) -> Routing(첫 소켓 연결, 끝점 라우팅) -> Idle
 public class CableManager : MonoBehaviour
 {
     public static CableManager Instance { get; private set; }
 
-    public CableType? SelectedType { get; private set; }
-
-    private enum State { Idle, TypeSelected, PendingEnd }
+    private enum State { Idle, TypeSelected, Routing }
     private State state = State.Idle;
 
+    public CableType? SelectedType { get; private set; }
     private CableSpawner activeSpawner;
-    private CableConnector pendingConnector;
 
-    public bool HasPending => pendingConnector != null && state == State.PendingEnd;
+    private CableComponent activeCable;
+    private CableConnector activeEndConnector;
 
-    public bool ShouldHighlight(CableType type) =>
-        state != State.Idle && SelectedType == type;
+    public bool IsRouting => state == State.Routing;
+    public bool ShouldHighlight(CableType type) => state != State.Idle && SelectedType == type;
 
     void Awake()
     {
@@ -24,43 +24,70 @@ public class CableManager : MonoBehaviour
         Instance = this;
     }
 
+    // 케이블 버튼 클릭
     public void SelectCableType(CableType type, CableSpawner spawner)
     {
+        // 라우팅 중엔 무시
+        if (state == State.Routing) return;
+        // 같은 타입 재클릭 → 취소
         if (state == State.TypeSelected && SelectedType == type) { Cancel(); return; }
+
         SelectedType = type;
         activeSpawner = spawner;
-        pendingConnector = null;
         state = State.TypeSelected;
     }
 
+    // 소켓 클릭
     public void OnSocketClicked(CableSocket socket)
     {
         if (state == State.TypeSelected)
         {
-            var (start, end) = activeSpawner.SpawnAt(socket.transform.position);
-            if (start == null) return;
-            socket.TryConnect(start);
-            pendingConnector = end;
-            state = State.PendingEnd;
+            if (socket.CableType != SelectedType) return;
+
+            var spawned = activeSpawner.SpawnAt(socket.transform.position);
+            if (spawned.cable == null) return;
+
+            // 첫 끝점 연결
+            socket.TryConnect(spawned.start);
+            // index 0 은 start 커넥터(소켓 위치)를 따라가도록 초기화됨
+
+            activeCable = spawned.cable;
+            activeEndConnector = spawned.end;
+            state = State.Routing;
         }
-        else if (state == State.PendingEnd)
+        else if (state == State.Routing)
         {
-            if (socket.TryConnect(pendingConnector))
-                Cancel();
+            if (socket.CableType != SelectedType) return;
+            if (socket.TryConnect(activeEndConnector))
+            {
+                activeCable.SetEndAnchor(socket.transform);
+                Finish();
+            }
         }
     }
 
-    public void MoveEndPointTo(Vector3 position)
+    // 통과점 클릭
+    public void OnPassThroughClicked(CablePassThrough pt)
     {
-        if (pendingConnector == null) return;
-        pendingConnector.transform.position = position;
+        if (state != State.Routing || activeCable == null) return;
+        activeCable.AddRouteAnchor(pt.transform);
+        activeCable.MoveEndTo(pt.transform.position);
+    }
+
+    void Finish()
+    {
+        state = State.Idle;
+        SelectedType = null;
+        activeSpawner = null;
+        activeCable = null;
+        activeEndConnector = null;
     }
 
     public void Cancel()
     {
-        SelectedType = null;
-        activeSpawner = null;
-        pendingConnector = null;
-        state = State.Idle;
+        // 라우팅 중 취소 시 케이블 제거
+        if (state == State.Routing && activeCable != null)
+            Destroy(activeCable.gameObject);
+        Finish();
     }
 }

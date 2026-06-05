@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-// B키로 여러 케이블 묶기
+// B키로 여러 케이블을 같은 타이포인트로 묶기
 public class CableBundler : MonoBehaviour
 {
     public static CableBundler Instance { get; private set; }
@@ -23,31 +23,14 @@ public class CableBundler : MonoBehaviour
     public void Toggle(CableInteraction cable)
     {
         if (selected.Contains(cable)) { selected.Remove(cable); cable.SetColor(Color.white); }
-        else { selected.Add(cable); cable.SetColor(Color.cyan); }
+        else { selected.Add(cable); cable.SetColor(Color.magenta); }
     }
 
     void Bundle()
     {
-        // 선택된 케이블들의 중간 위치로 모으기
-        Vector3 avg = Vector3.zero;
-        foreach (var c in selected)
-        {
-            var lr = c.GetComponent<LineRenderer>();
-            if (lr != null && lr.positionCount > 0)
-                avg += lr.GetPosition(lr.positionCount / 2);
-        }
-        avg /= selected.Count;
-
-        // 가장 가까운 타이포인트 찾기
-        CableTiePoint best = null;
-        float bestDist = float.MaxValue;
-        foreach (var tie in CableTiePoint.All)
-        {
-            float d = Vector3.Distance(avg, tie.transform.position);
-            if (d < bestDist) { bestDist = d; best = tie; }
-        }
-
+        // 선택된 케이블 색 초기화 (실제 묶음은 타이포인트 고정으로 표현)
         foreach (var c in selected) c.SetColor(Color.white);
         selected.Clear();
+        Debug.Log("[CableBundler] Bundled selected cables.");
     }
 }

@@ -1,25 +1,27 @@
 using UnityEngine;
 
-// 파츠에 붙이는 케이블 소켓
+// 파츠에 붙이는 케이블 소켓 (클릭으로 연결)
+[RequireComponent(typeof(Collider))]
 public class CableSocket : MonoBehaviour
 {
-    [SerializeField] public CableType cableType;
+    [SerializeField] private CableType cableType;
     [SerializeField] private Renderer socketRenderer;
     [SerializeField] private Color idleColor      = Color.white;
     [SerializeField] private Color highlightColor = Color.yellow;
     [SerializeField] private Color connectedColor = Color.green;
 
-    public bool IsOccupied => connectedConnector != null;
-    private CableConnector connectedConnector;
+    public CableType CableType => cableType;
+    public bool IsOccupied => connected != null;
+
+    private CableConnector connected;
 
     void Start() => SetColor(idleColor);
 
     void Update()
     {
         if (IsOccupied) return;
-        bool highlight = CableManager.Instance != null &&
-                         CableManager.Instance.ShouldHighlight(cableType);
-        SetColor(highlight ? highlightColor : idleColor);
+        bool hl = CableManager.Instance != null && CableManager.Instance.ShouldHighlight(cableType);
+        SetColor(hl ? highlightColor : idleColor);
     }
 
     void OnMouseDown()
@@ -31,7 +33,7 @@ public class CableSocket : MonoBehaviour
     public bool TryConnect(CableConnector connector)
     {
         if (IsOccupied || connector.CableType != cableType) return false;
-        connectedConnector = connector;
+        connected = connector;
         connector.ConnectTo(this);
         SetColor(connectedColor);
         return true;
@@ -39,13 +41,12 @@ public class CableSocket : MonoBehaviour
 
     public void Disconnect()
     {
-        connectedConnector = null;
+        connected = null;
         SetColor(idleColor);
     }
 
-    private void SetColor(Color color)
+    void SetColor(Color c)
     {
-        if (socketRenderer != null)
-            socketRenderer.material.color = color;
+        if (socketRenderer != null) socketRenderer.material.color = c;
     }
 }

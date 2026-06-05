@@ -1,7 +1,8 @@
+// 케이블 종류
 public enum CableType
 {
-    ATX24Pin,
-    CPU8Pin,
-    PCIe8Pin,
-    FanHeader
+    ATX24Pin,   // PSU -> Mainboard
+    CPU8Pin,    // PSU -> Mainboard
+    PCIe8Pin,   // PSU -> GPU
+    FanHeader   // Mainboard -> Cooler
 }

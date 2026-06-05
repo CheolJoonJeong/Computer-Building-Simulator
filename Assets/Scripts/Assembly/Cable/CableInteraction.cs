@@ -1,150 +1,102 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-// 케이블 클릭/타이포인트 고정/해제 상호작용
+// 케이블 정리(클린업) 상호작용 — 케이블 루트에 부착
+// 케이블 클릭 → 타이포인트 표시 → 타이포인트 클릭 → 해당 파티클 고정
+// G키 → 선택한 타이포인트 고정 해제 / B키(번들러) 와 함께 동작
+[RequireComponent(typeof(CableComponent))]
 public class CableInteraction : MonoBehaviour
 {
     [SerializeField] private float clickRadiusPixels = 30f;
 
-    private CableRenderer cableRenderer;
+    private CableComponent cable;
     private Camera cam;
 
-    // 타이포인트 고정 맵: 제어점 인덱스 → 타이포인트
-    // 인덱스는 CableRenderer controlPoints 리스트 순서
-    private readonly Dictionary<int, CableTiePoint> tieMap = new();
-    private readonly List<Transform> controlHandles = new();
-
-    // 현재 선택된 제어점 인덱스 (-1 = 없음)
-    private int selectedIdx = -1;
-    // G키로 해제할 타이포인트 선택
-    private CableTiePoint selectedTieForRelease = null;
-
-    public bool IsSelected => selectedIdx >= 0;
+    private int selectedParticle = -1;                 // 케이블에서 선택한 파티클
+    private CableTiePoint selectedTieForRelease;       // G키로 해제할 타이포인트
+    private readonly Dictionary<int, CableTiePoint> tieMap = new(); // 파티클 -> 타이포인트
 
     void Awake()
     {
-        cableRenderer = GetComponent<CableRenderer>();
+        cable = GetComponent<CableComponent>();
         cam = Camera.main;
     }
 
     void Update()
     {
-        if (cam == null) return;
+        if (cam == null || !cable.IsInitialized) return;
 
-        if (Input.GetMouseButtonDown(0))
-            HandleClick();
-
-        if (Input.GetKeyDown(KeyCode.G))
-            TryReleaseSelected();
+        if (Input.GetMouseButtonDown(0)) HandleClick();
+        if (Input.GetKeyDown(KeyCode.G)) ReleaseSelected();
     }
 
     void HandleClick()
     {
-        if (selectedIdx >= 0)
+        // 파티클이 선택된 상태 → 타이포인트 클릭 시 고정
+        if (selectedParticle >= 0)
         {
-            // 타이포인트 클릭 체크
-            CableTiePoint clicked = GetClickedTiePoint();
-            if (clicked != null)
+            CableTiePoint tie = GetClickedTiePoint();
+            if (tie != null)
             {
-                if (clicked.HasAnyBound && IsBoundToThis(clicked))
-                    SelectTieForRelease(clicked);
+                if (tie.HasAnyBound && IsBoundToThis(tie))
+                    SelectTieForRelease(tie);
                 else
-                    FixToTiePoint(clicked);
+                    FixToTiePoint(tie);
                 return;
             }
             Deselect();
             return;
         }
 
-        // 케이블 라인 클릭 체크
-        if (IsClickingCable())
+        // 케이블 클릭 → 파티클 선택
+        int idx = GetClickedParticle();
+        if (idx >= 0)
         {
-            selectedIdx = GetBestControlPointIdx();
-            foreach (var tie in CableTiePoint.All)
-                tie.ShowIndicator(true);
-            cableRenderer.SetColor(Color.cyan);
+            selectedParticle = idx;
+            foreach (var t in CableTiePoint.All) t.ShowIndicator(true);
+            cable.SetColor(Color.cyan);
             return;
         }
 
-        // 고정된 타이포인트 클릭 (케이블 선택 없이)
-        CableTiePoint tie2 = GetClickedTiePoint();
-        if (tie2 != null && tie2.HasAnyBound && IsBoundToThis(tie2))
-            SelectTieForRelease(tie2);
+        // 고정된 타이포인트 직접 클릭 → 해제 선택
+        CableTiePoint clicked = GetClickedTiePoint();
+        if (clicked != null && clicked.HasAnyBound && IsBoundToThis(clicked))
+            SelectTieForRelease(clicked);
     }
 
-    // 케이블 라인을 화면상 픽셀 거리로 클릭 감지
-    bool IsClickingCable()
+    int GetClickedParticle()
     {
-        if (cableRenderer == null) return false;
-        var lr = GetComponent<LineRenderer>();
-        if (lr == null) return false;
-
-        Vector2 mousePos = Input.mousePosition;
-        for (int i = 0; i < lr.positionCount; i++)
-        {
-            Vector3 screenPt = cam.WorldToScreenPoint(lr.GetPosition(i));
-            if (screenPt.z <= 0) continue;
-            if (Vector2.Distance(mousePos, new Vector2(screenPt.x, screenPt.y)) < clickRadiusPixels)
-                return true;
-        }
-        return false;
-    }
-
-    // 클릭 지점과 가장 가까운 제어점 인덱스 반환
-    int GetBestControlPointIdx()
-    {
-        var lr = GetComponent<LineRenderer>();
-        if (lr == null || lr.positionCount == 0) return 0;
-
-        Vector2 mousePos = Input.mousePosition;
-        float bestDist = float.MaxValue;
-        int bestIdx = 0;
-
-        // 라인 전체에서 가장 가까운 점의 비율로 제어점 인덱스 추정
-        for (int i = 0; i < lr.positionCount; i++)
-        {
-            Vector3 screenPt = cam.WorldToScreenPoint(lr.GetPosition(i));
-            if (screenPt.z <= 0) continue;
-            float dist = Vector2.Distance(mousePos, new Vector2(screenPt.x, screenPt.y));
-            if (dist < bestDist)
-            {
-                bestDist = dist;
-                // 제어점 인덱스로 매핑 (중간 구역)
-                bestIdx = Mathf.Clamp(i * controlHandles.Count / Mathf.Max(lr.positionCount, 1),
-                                      0, Mathf.Max(controlHandles.Count - 1, 0));
-            }
-        }
-        return bestIdx;
+        int idx = cable.FindClosestMiddleParticle(cam, Input.mousePosition, out float dist);
+        return (idx >= 0 && dist <= clickRadiusPixels) ? idx : -1;
     }
 
     void FixToTiePoint(CableTiePoint tie)
     {
-        // 이미 이 인덱스에 고정된 게 있으면 해제
-        if (tieMap.TryGetValue(selectedIdx, out var existing))
+        // 도달 범위 검증 (늘어남 방지)
+        float segLen = cable.SegmentLength;
+        float maxFromStart = selectedParticle * segLen;
+        float maxFromEnd = (cable.Segments - selectedParticle) * segLen;
+        float dStart = Vector3.Distance(cable.GetParticle(0), tie.transform.position);
+        float dEnd = Vector3.Distance(cable.GetParticle(cable.Segments), tie.transform.position);
+
+        if (dStart > maxFromStart * 1.02f || dEnd > maxFromEnd * 1.02f)
         {
-            existing.Unbind(this);
-            if (selectedIdx < controlHandles.Count)
-            {
-                cableRenderer.RemoveControlPoint(controlHandles[selectedIdx]);
-                Destroy(controlHandles[selectedIdx].gameObject);
-                controlHandles.RemoveAt(selectedIdx);
-            }
-            tieMap.Remove(selectedIdx);
+            Debug.Log("[Cable] Tie point out of reach for this point.");
+            Deselect();
+            return;
         }
 
-        // 새 제어점 핸들 생성
-        var handleGO = new GameObject($"_TieHandle_{selectedIdx}");
-        handleGO.transform.position = tie.transform.position;
-        var handle = handleGO.transform;
+        // 같은 파티클에 이미 고정돼 있으면 교체
+        if (tieMap.TryGetValue(selectedParticle, out var old))
+        {
+            old.Unbind(this);
+            cable.UnpinParticle(selectedParticle);
+            tieMap.Remove(selectedParticle);
+        }
 
-        // controlHandles에 삽입
-        int insertIdx = Mathf.Min(selectedIdx, controlHandles.Count);
-        controlHandles.Insert(insertIdx, handle);
-        cableRenderer.AddControlPoint(handle);
-
-        // tieMap 업데이트
-        tieMap[insertIdx] = tie;
+        cable.PinParticle(selectedParticle, tie.transform);
         tie.Bind(this);
+        tieMap[selectedParticle] = tie;
 
         Deselect();
     }
@@ -156,35 +108,29 @@ public class CableInteraction : MonoBehaviour
         tie.SetHighlight(true);
     }
 
-    void TryReleaseSelected()
+    void ReleaseSelected()
     {
         if (selectedTieForRelease == null) return;
 
-        // tieMap에서 해당 타이포인트 찾아서 해제
-        int targetIdx = -1;
+        int target = -1;
         foreach (var kv in tieMap)
-        {
-            if (kv.Value == selectedTieForRelease) { targetIdx = kv.Key; break; }
-        }
-        if (targetIdx < 0) return;
+            if (kv.Value == selectedTieForRelease) { target = kv.Key; break; }
 
-        selectedTieForRelease.Unbind(this);
-        if (targetIdx < controlHandles.Count)
+        if (target >= 0)
         {
-            cableRenderer.RemoveControlPoint(controlHandles[targetIdx]);
-            Destroy(controlHandles[targetIdx].gameObject);
-            controlHandles.RemoveAt(targetIdx);
+            selectedTieForRelease.Unbind(this);
+            cable.UnpinParticle(target);
+            tieMap.Remove(target);
         }
-        tieMap.Remove(targetIdx);
         selectedTieForRelease = null;
     }
 
     void Deselect()
     {
-        selectedIdx = -1;
-        foreach (var tie in CableTiePoint.All)
-            if (!tie.HasAnyBound) tie.ShowIndicator(false);
-        cableRenderer.SetColor(Color.white);
+        selectedParticle = -1;
+        foreach (var t in CableTiePoint.All)
+            if (!t.HasAnyBound) t.ShowIndicator(false);
+        cable.SetColor(Color.white);
     }
 
     CableTiePoint GetClickedTiePoint()
@@ -192,10 +138,8 @@ public class CableInteraction : MonoBehaviour
         Ray ray = cam.ScreenPointToRay(Input.mousePosition);
         int mask = ~LayerMask.GetMask("Ignore Raycast", "AssembledPart");
         if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, mask))
-        {
             return hit.collider.GetComponent<CableTiePoint>()
                 ?? hit.collider.GetComponentInParent<CableTiePoint>();
-        }
         return null;
     }
 
@@ -206,6 +150,6 @@ public class CableInteraction : MonoBehaviour
         return false;
     }
 
-    // CableBundler용
-    public void SetColor(Color color) => cableRenderer?.SetColor(color);
+    public int BoundCount => tieMap.Count;
+    public void SetColor(Color c) => cable.SetColor(c);
 }

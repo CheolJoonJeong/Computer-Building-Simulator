@@ -1,6 +1,6 @@
 using UnityEngine;
 
-// 케이블 양 끝점에 붙이는 컴포넌트
+// 케이블 끝점에 붙이는 커넥터
 public class CableConnector : MonoBehaviour
 {
     [SerializeField] private CableType cableType;

@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-// 케이스 내부 케이블 고정 포인트
+// 케이블 정리 고정 포인트
 [RequireComponent(typeof(SphereCollider))]
 public class CableTiePoint : MonoBehaviour
 {
@@ -12,9 +12,9 @@ public class CableTiePoint : MonoBehaviour
     [SerializeField] private Color highlightColor = new Color(1f, 0.8f, 0f, 0.5f);
     [SerializeField] private Color boundColor     = new Color(0f, 1f, 0.4f, 0.5f);
 
-    // 이 타이포인트에 고정된 케이블 목록
-    private readonly List<CableInteraction> boundCables = new();
-    public bool HasAnyBound => boundCables.Count > 0;
+    // 이 타이포인트에 고정된 케이블들
+    private readonly List<CableInteraction> bound = new();
+    public bool HasAnyBound => bound.Count > 0;
 
     private GameObject indicator;
     private Material indicatorMat;
@@ -36,7 +36,7 @@ public class CableTiePoint : MonoBehaviour
         indicator = GameObject.CreatePrimitive(PrimitiveType.Sphere);
         indicator.name = "_TieIndicator";
         indicator.transform.SetParent(transform, false);
-        indicator.transform.localScale = Vector3.one * indicatorScale;
+        indicator.transform.localScale = Vector3.one * indicatorScale * 2f;
         Destroy(indicator.GetComponent<Collider>());
 
         indicatorMat = new Material(Shader.Find("Standard"));
@@ -62,20 +62,15 @@ public class CableTiePoint : MonoBehaviour
 
     public void Bind(CableInteraction cable)
     {
-        if (!boundCables.Contains(cable))
-            boundCables.Add(cable);
+        if (!bound.Contains(cable)) bound.Add(cable);
         SetColor(boundColor);
         ShowIndicator(true);
     }
 
     public void Unbind(CableInteraction cable)
     {
-        boundCables.Remove(cable);
-        if (!HasAnyBound)
-        {
-            SetColor(idleColor);
-            ShowIndicator(false);
-        }
+        bound.Remove(cable);
+        if (!HasAnyBound) { SetColor(idleColor); ShowIndicator(false); }
     }
 
     void SetColor(Color c)

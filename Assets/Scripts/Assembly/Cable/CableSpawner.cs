@@ -5,28 +5,38 @@ public class CableSpawner : MonoBehaviour
 {
     [SerializeField] private CableType cableType;
     [SerializeField] private GameObject cablePrefab;
-    [SerializeField] private Vector3 spawnOffset = new Vector3(0.3f, 0f, 0f);
 
+    // UI 버튼 OnClick 에 연결
     public void OnButtonClick()
     {
         if (CableManager.Instance == null) { Debug.LogError("[CableSpawner] CableManager not found."); return; }
         CableManager.Instance.SelectCableType(cableType, this);
     }
 
-    public (CableConnector start, CableConnector end) SpawnAt(Vector3 position)
+    public (CableConnector start, CableConnector end, CableComponent cable) SpawnAt(Vector3 position)
     {
-        if (cablePrefab == null) { Debug.LogError("[CableSpawner] cablePrefab not assigned."); return (null, null); }
+        if (cablePrefab == null)
+        {
+            Debug.LogError("[CableSpawner] cablePrefab not assigned.");
+            return (null, null, null);
+        }
 
-        var go = Instantiate(cablePrefab, position + spawnOffset, Quaternion.identity);
-        var startConn = go.GetComponent<CableConnector>();
-        var endPoint  = go.transform.Find("EndPoint");
-        var endConn   = endPoint != null ? endPoint.GetComponent<CableConnector>() : null;
+        var go = Instantiate(cablePrefab, position, Quaternion.identity);
+        var cable = go.GetComponent<CableComponent>();
 
-        // CableRenderer 초기화
-        var renderer = go.GetComponent<CableRenderer>();
-        if (renderer != null && endPoint != null)
-            renderer.Init(go.transform, endPoint);
+        // 루트의 커넥터 = start, EndPoint 자식의 커넥터 = end
+        CableConnector start = null, end = null;
+        foreach (var c in go.GetComponentsInChildren<CableConnector>())
+        {
+            if (c.IsEndPoint) end = c;
+            else start = c;
+        }
 
-        return (startConn, endConn);
+        Transform endPoint = end != null ? end.transform : go.transform;
+
+        if (cable != null && start != null)
+            cable.Init(start.transform, endPoint);
+
+        return (start, end, cable);
     }
 }
