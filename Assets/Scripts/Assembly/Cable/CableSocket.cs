@@ -7,10 +7,13 @@ using UnityEngine;
 public class CableSocket : MonoBehaviour
 {
     [SerializeField] private CableType cableType;
+    [Tooltip("출발(시작) 소켓이면 체크. 도착 소켓이면 해제")]
+    [SerializeField] private bool isSource = true;
     [Tooltip("소켓 비주얼 (켜고 끔으로 하이라이트)")]
     [SerializeField] private GameObject socketVisual;
 
     public CableType CableType => cableType;
+    public bool IsSource => isSource;
     public bool IsOccupied => connected != null;
 
     private CableConnector connected;
@@ -22,7 +25,7 @@ public class CableSocket : MonoBehaviour
         if (IsOccupied) { ShowVisual(false); return; }
 
         bool match = CableManager.Instance != null &&
-                     CableManager.Instance.ShouldHighlight(cableType);
+                     CableManager.Instance.ShouldHighlight(this);
         ShowVisual(match);
     }
 

@@ -16,7 +16,15 @@ public class CableManager : MonoBehaviour
     private CableConnector activeEndConnector;
 
     public bool IsRouting => state == State.Routing;
-    public bool ShouldHighlight(CableType type) => state != State.Idle && SelectedType == type;
+
+    // 단계별로 표시할 소켓: TypeSelected → 출발 소켓, Routing → 도착 소켓
+    public bool ShouldHighlight(CableSocket socket)
+    {
+        if (SelectedType != socket.CableType) return false;
+        if (state == State.TypeSelected) return socket.IsSource;
+        if (state == State.Routing)      return !socket.IsSource;
+        return false;
+    }
 
     void Awake()
     {
@@ -42,7 +50,7 @@ public class CableManager : MonoBehaviour
     {
         if (state == State.TypeSelected)
         {
-            if (socket.CableType != SelectedType) return;
+            if (socket.CableType != SelectedType || !socket.IsSource) return;
 
             var spawned = activeSpawner.SpawnAt(socket.transform.position);
             if (spawned.cable == null) return;
@@ -57,7 +65,7 @@ public class CableManager : MonoBehaviour
         }
         else if (state == State.Routing)
         {
-            if (socket.CableType != SelectedType) return;
+            if (socket.CableType != SelectedType || socket.IsSource) return;
             if (socket.TryConnect(activeEndConnector))
             {
                 activeCable.SetEndAnchor(socket.transform);
