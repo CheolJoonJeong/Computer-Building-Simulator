@@ -40,6 +40,7 @@ public class CableComponent : MonoBehaviour
     public int Segments => segments;
     public float TotalLength => totalLength;
     public float SegmentLength => totalLength / segments;
+    public float CollisionRadius => collisionRadius;
     public Vector3 GetParticle(int i) => pos[Mathf.Clamp(i, 0, segments)];
     public bool IsInitialized => initialized;
 

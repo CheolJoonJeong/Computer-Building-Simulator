@@ -18,9 +18,16 @@ public class PartSelector : MonoBehaviour
     {
         if (IsAssembled())
         {
+            if (CableOverlapChecker.Instance != null && CableOverlapChecker.Instance.IsBlocked
+                && !CableOverlapChecker.Instance.IsConflictPart(targetPart))
+                return;
+
             Detach();
             return;
         }
+
+        if (CableOverlapChecker.Instance != null && CableOverlapChecker.Instance.IsBlocked)
+            return;
 
         if (PartSelectionManager.SelectedButton == gameObject)
         {
@@ -32,8 +39,9 @@ public class PartSelector : MonoBehaviour
 
         if (targetSlot != null)
         {
-            Collider col = targetSlot.GetComponent<Collider>();
-            if (col != null) col.enabled = true;
+            // 콜라이더가 슬롯 본체가 아닌 자식에 있는 경우도 처리
+            foreach (Collider col in targetSlot.GetComponentsInChildren<Collider>(true))
+                col.enabled = true;
 
             foreach (Renderer r in targetSlot.GetComponentsInChildren<Renderer>())
                 r.enabled = true;
@@ -63,6 +71,7 @@ public class PartSelector : MonoBehaviour
             col.enabled = true;
 
         SetUnassembled();
+        CableOverlapChecker.Instance?.OnPartDetached(targetPart);
     }
 
     public void SetAssembled()
