@@ -14,7 +14,9 @@ public class CableConnector : MonoBehaviour
     public void ConnectTo(CableSocket socket)
     {
         ConnectedSocket = socket;
-        transform.position = socket.transform.position;
+        Transform anchor = socket.AnchorTransform;
+        transform.position = anchor.position;
+        transform.rotation = anchor.rotation;
     }
 
     public void Disconnect()

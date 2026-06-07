@@ -8,11 +8,12 @@ public class PartSelectionManager : MonoBehaviour
 
     public static void Clear()
     {
-        // ¸ğµç ½½·Ô Collider ²ô±â + ·»´õ·¯ ²ô±â
+        // ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Collider ï¿½ï¿½ï¿½ï¿½ + ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         foreach (SnapZone slot in FindObjectsOfType<SnapZone>(true))
         {
-            Collider col = slot.GetComponent<Collider>();
-            if (col != null) col.enabled = false;
+            // ì½œë¼ì´ë”ê°€ ìŠ¬ë¡¯ ë³¸ì²´ê°€ ì•„ë‹Œ ìì‹ì— ìˆëŠ” ê²½ìš°ë„ ì²˜ë¦¬
+            foreach (Collider col in slot.GetComponentsInChildren<Collider>(true))
+                col.enabled = false;
 
             foreach (Renderer r in slot.GetComponentsInChildren<Renderer>())
                 r.enabled = false;

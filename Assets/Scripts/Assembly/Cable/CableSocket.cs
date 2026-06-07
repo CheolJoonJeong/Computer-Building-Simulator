@@ -16,6 +16,10 @@ public class CableSocket : MonoBehaviour
     public bool IsSource => isSource;
     public bool IsOccupied => connected != null;
 
+    // 케이블 헤더가 붙을 실제 지점. socketVisual이 있으면 그 위치를 사용
+    // (소켓 pivot이 슬롯 구멍과 어긋나 있어도 비주얼 위치에 정확히 붙음)
+    public Transform AnchorTransform => socketVisual != null ? socketVisual.transform : transform;
+
     private CableConnector connected;
 
     void Start() => ShowVisual(false);
@@ -27,12 +31,6 @@ public class CableSocket : MonoBehaviour
         bool match = CableManager.Instance != null &&
                      CableManager.Instance.ShouldHighlight(this);
         ShowVisual(match);
-    }
-
-    void OnMouseDown()
-    {
-        if (IsOccupied) return;
-        CableManager.Instance?.OnSocketClicked(this);
     }
 
     public bool TryConnect(CableConnector connector)

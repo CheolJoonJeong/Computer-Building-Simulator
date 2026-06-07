@@ -97,6 +97,26 @@ public class CableComponent : MonoBehaviour
     public void SetEndAnchor(Transform endAnchor)
     {
         pins[segments] = endAnchor;
+        pos[segments] = endAnchor.position;
+        prev[segments] = endAnchor.position;
+
+        // 마지막 route point ~ 끝점 구간만 직선으로 초기화
+        int lastPin = 0;
+        foreach (var idx in pins.Keys)
+            if (idx < segments && idx > lastPin) lastPin = idx;
+
+        if (lastPin < segments - 1)
+        {
+            Vector3 from = pos[lastPin];
+            Vector3 to = endAnchor.position;
+            int steps = segments - lastPin;
+            for (int i = lastPin + 1; i < segments; i++)
+            {
+                float t = (float)(i - lastPin) / steps;
+                pos[i] = Vector3.Lerp(from, to, t);
+                prev[i] = pos[i];
+            }
+        }
     }
 
     // 끝점을 특정 위치로 텔레포트(자유 상태 유지)
@@ -141,7 +161,6 @@ public class CableComponent : MonoBehaviour
 
     void RebuildRoutePins()
     {
-        // 기존 route 핀 제거
         foreach (int idx in routeIndices) pins.Remove(idx);
         routeIndices.Clear();
 
@@ -150,12 +169,40 @@ public class CableComponent : MonoBehaviour
         {
             int idx = Mathf.RoundToInt((i + 1) * segments / (float)(count + 1));
             idx = Mathf.Clamp(idx, 1, segments - 1);
-            // 중복 방지
             while (routeIndices.Contains(idx) && idx < segments - 1) idx++;
             routeIndices.Add(idx);
             pins[idx] = routeAnchors[i];
             pos[idx] = routeAnchors[i].position;
             prev[idx] = routeAnchors[i].position;
+        }
+
+        // 핀들 사이 구간 파티클을 직선으로 초기화
+        ReinitParticlesBetweenPins();
+    }
+
+    // 고정된 핀들 사이 구간의 파티클을 직선 보간으로 재배치
+    void ReinitParticlesBetweenPins()
+    {
+        // 핀 인덱스를 정렬된 순서로 수집
+        var pinIndices = new System.Collections.Generic.List<int>(pins.Keys);
+        pinIndices.Sort();
+
+        for (int s = 0; s < pinIndices.Count - 1; s++)
+        {
+            int a = pinIndices[s];
+            int b = pinIndices[s + 1];
+            if (b - a <= 1) continue;
+
+            Vector3 from = pos[a];
+            Vector3 to = pos[b];
+            int steps = b - a;
+
+            for (int i = a + 1; i < b; i++)
+            {
+                float t = (float)(i - a) / steps;
+                pos[i] = Vector3.Lerp(from, to, t);
+                prev[i] = pos[i];
+            }
         }
     }
 

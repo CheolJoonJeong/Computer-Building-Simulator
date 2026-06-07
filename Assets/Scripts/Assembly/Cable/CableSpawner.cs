@@ -5,12 +5,20 @@ public class CableSpawner : MonoBehaviour
 {
     [SerializeField] private CableType cableType;
     [SerializeField] private GameObject cablePrefab;
+    [Tooltip("케이블이 기본으로 지나갈 통과점들 (순서대로). 비워두면 직선)")]
+    [SerializeField] private Transform[] defaultRoute;
+    [Tooltip("지정하면 버튼 클릭 시 바로 이 소켓에 연결되어 라우팅 시작 (출발 소켓 직접 클릭 불필요)")]
+    [SerializeField] private CableSocket sourceSocket;
 
     // UI 버튼 OnClick 에 연결
     public void OnButtonClick()
     {
         if (CableManager.Instance == null) { Debug.LogError("[CableSpawner] CableManager not found."); return; }
-        CableManager.Instance.SelectCableType(cableType, this);
+
+        if (sourceSocket != null)
+            CableManager.Instance.StartFromSpawner(cableType, this, sourceSocket);
+        else
+            CableManager.Instance.SelectCableType(cableType, this);
     }
 
     public (CableConnector start, CableConnector end, CableComponent cable) SpawnAt(Vector3 position)
@@ -35,7 +43,14 @@ public class CableSpawner : MonoBehaviour
         Transform endPoint = end != null ? end.transform : go.transform;
 
         if (cable != null && start != null)
+        {
             cable.Init(start.transform, endPoint);
+
+            // 기본 경로(통과점) 자동 적용
+            if (defaultRoute != null)
+                foreach (var anchor in defaultRoute)
+                    if (anchor != null) cable.AddRouteAnchor(anchor);
+        }
 
         return (start, end, cable);
     }

@@ -69,6 +69,31 @@ public class CableManager : MonoBehaviour
         state = State.TypeSelected;
     }
 
+    // 버튼 클릭만으로 지정된 출발 소켓에 즉시 연결 후 라우팅 시작
+    public void StartFromSpawner(CableType type, CableSpawner spawner, CableSocket sourceSocket)
+    {
+        if (CableOverlapChecker.Instance != null && CableOverlapChecker.Instance.IsBlocked) return;
+        if (state == State.Routing) return;
+        if (state == State.TypeSelected && SelectedType == type) { Cancel(); return; }
+
+        if (sourceSocket.IsOccupied || sourceSocket.CableType != type || !sourceSocket.IsSource)
+        {
+            Debug.Log("[CableManager] Source socket not available.");
+            return;
+        }
+
+        var spawned = spawner.SpawnAt(sourceSocket.AnchorTransform.position);
+        if (spawned.cable == null) return;
+
+        sourceSocket.TryConnect(spawned.start);
+
+        SelectedType = type;
+        activeSpawner = spawner;
+        activeCable = spawned.cable;
+        activeEndConnector = spawned.end;
+        state = State.Routing;
+    }
+
     // 소켓 클릭
     public void OnSocketClicked(CableSocket socket)
     {
@@ -109,8 +134,6 @@ public class CableManager : MonoBehaviour
 
     void Finish()
     {
-        CableOverlapChecker.Instance?.RunCheckForCable(activeCable);
-
         state = State.Idle;
         SelectedType = null;
         activeSpawner = null;
