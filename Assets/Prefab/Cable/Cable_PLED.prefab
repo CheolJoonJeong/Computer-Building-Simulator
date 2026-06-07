@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3974540220730394864}
-  - component: {fileID: 6818794118460145081}
   - component: {fileID: 9165020788197949959}
   m_Layer: 0
   m_Name: EndPoint
@@ -34,27 +33,6 @@ Transform:
   - {fileID: 1329373121932030483}
   m_Father: {fileID: 3101534880607596756}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &6818794118460145081
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 909751102013838751}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &9165020788197949959
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -78,7 +56,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1527239017036395967}
-  - component: {fileID: 1652140154790448851}
   - component: {fileID: 4532198171603009431}
   m_Layer: 0
   m_Name: StartPoint
@@ -103,27 +80,6 @@ Transform:
   - {fileID: 8932990174259361593}
   m_Father: {fileID: 3101534880607596756}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &1652140154790448851
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5143420976475100958}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &4532198171603009431
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -303,13 +259,13 @@ MonoBehaviour:
   totalLength: 1.5
   cableWidth: 0.02
   cableMaterial: {fileID: 0}
-  solverIterations: 30
-  damping: 0.92
+  solverIterations: 15
+  damping: 0.85
   gravityScale: 1
   collisionMask:
     serializedVersion: 2
     m_Bits: 4294967295
-  collisionRadius: 0.02
+  collisionRadius: 0.005
 --- !u!114 &6448445389752641007
 MonoBehaviour:
   m_ObjectHideFlags: 0

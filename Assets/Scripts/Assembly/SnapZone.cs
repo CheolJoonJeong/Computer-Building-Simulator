@@ -128,6 +128,7 @@ public class SnapZone : MonoBehaviour
         Debug.Log("Assembled!");
 
         CableOverlapChecker.Instance?.RunCheckForPart(snappedPart);
+        AssemblyCompletionChecker.Instance?.CheckCompletion();
     }
 
     public void ForceDetach()

@@ -100,23 +100,10 @@ public class CableComponent : MonoBehaviour
         pos[segments] = endAnchor.position;
         prev[segments] = endAnchor.position;
 
-        // 마지막 route point ~ 끝점 구간만 직선으로 초기화
-        int lastPin = 0;
-        foreach (var idx in pins.Keys)
-            if (idx < segments && idx > lastPin) lastPin = idx;
-
-        if (lastPin < segments - 1)
-        {
-            Vector3 from = pos[lastPin];
-            Vector3 to = endAnchor.position;
-            int steps = segments - lastPin;
-            for (int i = lastPin + 1; i < segments; i++)
-            {
-                float t = (float)(i - lastPin) / steps;
-                pos[i] = Vector3.Lerp(from, to, t);
-                prev[i] = pos[i];
-            }
-        }
+        // 핀 인덱스는 유지하되, 각 핀-핀 구간을 최종 위치 기준으로 다시 직선 보간
+        // (스폰 직후엔 끝점이 시작점 근처라 route pin들이 한쪽에 몰려 배정되었을 수 있음 →
+        //  최종 연결 시 마지막 구간이 과도하게 길고 가파른 직선이 되는 문제 방지)
+        ReinitParticlesBetweenPins();
     }
 
     // 끝점을 특정 위치로 텔레포트(자유 상태 유지)
@@ -142,6 +129,19 @@ public class CableComponent : MonoBehaviour
             pins.Remove(index);
     }
 
+    // 라우팅 시작 전, 끝점이 자유 파티클로 방치되어 중력/충돌에 튀어 오르는 것을 막기 위해
+    // 스폰된 자기 위치에 임시 고정(따라갈 Transform 없이 제자리 유지) — 라우팅 시작 시 ReleaseEnd로 해제
+    public void HoldEndInPlace()
+    {
+        pins[segments] = null;
+        prev[segments] = pos[segments];
+    }
+
+    public void ReleaseEnd()
+    {
+        pins.Remove(segments);
+    }
+
     public bool IsPinned(int index) => pins.ContainsKey(index);
 
     // 화면 클릭 위치에서 가장 가까운 중간 파티클 인덱스 (1..segments-1)
@@ -161,13 +161,37 @@ public class CableComponent : MonoBehaviour
 
     void RebuildRoutePins()
     {
+        // 핀 해제로 자유 파티클이 되는 순간 prev를 pos로 맞춰 속도(이전 핀 위치와의 차이)로 인한
+        // 순간적인 솟구침을 방지
+        foreach (int idx in routeIndices) prev[idx] = pos[idx];
+
         foreach (int idx in routeIndices) pins.Remove(idx);
         routeIndices.Clear();
 
         int count = routeAnchors.Count;
+        if (count == 0) { ReinitParticlesBetweenPins(); return; }
+
+        // 시작점 -> route anchor들 -> (현재) 끝점 순서로 누적 거리를 구해
+        // 거리 비율에 비례해서 인덱스를 배정 (균등 분배 시 생기는 접힘 방지)
+        Vector3 startPos = pins.ContainsKey(0) ? pos[0] : pos[0];
+        Vector3 endPos = pos[segments];
+
+        var points = new System.Collections.Generic.List<Vector3> { startPos };
+        foreach (var a in routeAnchors) points.Add(a.position);
+        points.Add(endPos);
+
+        var cumulative = new float[points.Count];
+        cumulative[0] = 0f;
+        for (int i = 1; i < points.Count; i++)
+            cumulative[i] = cumulative[i - 1] + Vector3.Distance(points[i - 1], points[i]);
+
+        float totalDist = cumulative[points.Count - 1];
+        if (totalDist < 0.0001f) totalDist = 1f;
+
         for (int i = 0; i < count; i++)
         {
-            int idx = Mathf.RoundToInt((i + 1) * segments / (float)(count + 1));
+            float ratio = cumulative[i + 1] / totalDist; // points[i+1] = routeAnchors[i]
+            int idx = Mathf.RoundToInt(ratio * segments);
             idx = Mathf.Clamp(idx, 1, segments - 1);
             while (routeIndices.Contains(idx) && idx < segments - 1) idx++;
             routeIndices.Add(idx);

@@ -109,6 +109,8 @@ public class CableManager : MonoBehaviour
             socket.TryConnect(spawned.start);
             // index 0 은 start 커넥터(소켓 위치)를 따라가도록 초기화됨
 
+            spawned.cable.ReleaseEnd();
+
             activeCable = spawned.cable;
             activeEndConnector = spawned.end;
             state = State.Routing;
@@ -118,7 +120,12 @@ public class CableManager : MonoBehaviour
             if (socket.CableType != SelectedType || socket.IsSource) return;
             if (socket.TryConnect(activeEndConnector))
             {
+                if (socket.EndRoute != null)
+                    foreach (var anchor in socket.EndRoute)
+                        if (anchor != null) activeCable.AddRouteAnchor(anchor);
+
                 activeCable.SetEndAnchor(socket.AnchorTransform);
+                activeSpawner?.OnConnected();
                 Finish();
             }
         }
@@ -129,6 +136,11 @@ public class CableManager : MonoBehaviour
     {
         if (state != State.Routing || activeCable == null) return;
         activeCable.AddRouteAnchor(pt.transform);
+
+        if (pt.ForcedRoute != null)
+            foreach (var anchor in pt.ForcedRoute)
+                if (anchor != null) activeCable.AddRouteAnchor(anchor);
+
         activeCable.MoveEndTo(pt.transform.position);
     }
 

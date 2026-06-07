@@ -22,6 +22,13 @@ public class PartSelector : MonoBehaviour
                 && !CableOverlapChecker.Instance.IsConflictPart(targetPart))
                 return;
 
+            if (HasConnectedCable())
+            {
+                CableOverlapChecker.Instance?.ShowTransientMessage(
+                    $"'{targetPart.name}' has connected cables.\nDisconnect the cables first.");
+                return;
+            }
+
             Detach();
             return;
         }
@@ -90,6 +97,14 @@ public class PartSelector : MonoBehaviour
 
         foreach (TMP_Text t in GetComponentsInChildren<TMP_Text>())
             t.color = Color.black;
+    }
+
+    bool HasConnectedCable()
+    {
+        if (targetPart == null) return false;
+        foreach (CableSocket socket in targetPart.GetComponentsInChildren<CableSocket>(true))
+            if (socket.IsOccupied) return true;
+        return false;
     }
 
     bool IsAssembled()

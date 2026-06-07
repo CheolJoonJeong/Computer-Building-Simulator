@@ -11,10 +11,13 @@ public class CableSocket : MonoBehaviour
     [SerializeField] private bool isSource = true;
     [Tooltip("소켓 비주얼 (켜고 끔으로 하이라이트)")]
     [SerializeField] private GameObject socketVisual;
+    [Tooltip("도착 소켓일 때, 연결 직전 케이블이 경유할 포인트들 (순서대로)")]
+    [SerializeField] private Transform[] endRoute;
 
     public CableType CableType => cableType;
     public bool IsSource => isSource;
     public bool IsOccupied => connected != null;
+    public Transform[] EndRoute => endRoute;
 
     // 케이블 헤더가 붙을 실제 지점. socketVisual이 있으면 그 위치를 사용
     // (소켓 pivot이 슬롯 구멍과 어긋나 있어도 비주얼 위치에 정확히 붙음)

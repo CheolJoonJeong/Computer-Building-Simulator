@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2721051448680189797}
   - component: {fileID: 4128378191689276566}
-  - component: {fileID: 6518171677029818172}
   m_Layer: 0
   m_Name: StartPoint
   m_TagString: Untagged
@@ -48,27 +47,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cableType: 8
   isEndPoint: 0
---- !u!65 &6518171677029818172
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1947079720085723392}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &6533732064505896327
 GameObject:
   m_ObjectHideFlags: 0
@@ -234,13 +212,13 @@ MonoBehaviour:
   totalLength: 1.5
   cableWidth: 0.02
   cableMaterial: {fileID: 0}
-  solverIterations: 30
-  damping: 0.92
+  solverIterations: 15
+  damping: 0.85
   gravityScale: 1
   collisionMask:
     serializedVersion: 2
     m_Bits: 4294967295
-  collisionRadius: 0.02
+  collisionRadius: 0.005
 --- !u!114 &6598202658284614444
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -264,7 +242,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7032255613230096757}
   - component: {fileID: 1384928911832593407}
-  - component: {fileID: 5466187058648755272}
   m_Layer: 0
   m_Name: EndPoint
   m_TagString: Untagged
@@ -302,27 +279,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cableType: 8
   isEndPoint: 1
---- !u!65 &5466187058648755272
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6868517646336603920}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &1310807435432542260
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 
@@ -13,6 +14,7 @@ public class CableOverlapChecker : MonoBehaviour
     public bool IsBlocked { get; private set; }
 
     private readonly HashSet<GameObject> conflictParts = new();
+    private Coroutine transientRoutine;
 
     void Awake()
     {
@@ -102,6 +104,28 @@ public class CableOverlapChecker : MonoBehaviour
                 warningText.text = "Cable overlap detected.\nPlease remove the conflicting part.";
             }
         }
+    }
+
+    // 일시적인 경고 메시지 표시 (블로킹 상태와 무관)
+    public void ShowTransientMessage(string message, float duration = 2f)
+    {
+        if (transientRoutine != null) StopCoroutine(transientRoutine);
+        transientRoutine = StartCoroutine(TransientMessageRoutine(message, duration));
+    }
+
+    private IEnumerator TransientMessageRoutine(string message, float duration)
+    {
+        if (warningPanel != null) warningPanel.SetActive(true);
+        if (warningText != null)
+        {
+            warningText.gameObject.SetActive(true);
+            warningText.text = message;
+        }
+
+        yield return new WaitForSeconds(duration);
+
+        transientRoutine = null;
+        UpdateBlockState(); // 블로킹 상태에 따라 원래대로 복귀 (블로킹 아니면 숨김)
     }
 
     GameObject FindPartRoot(GameObject obj)

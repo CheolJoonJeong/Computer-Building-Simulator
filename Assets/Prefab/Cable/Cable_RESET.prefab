@@ -162,16 +162,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   segments: 24
-  totalLength: 1.5
+  totalLength: 1
   cableWidth: 0.02
   cableMaterial: {fileID: 0}
-  solverIterations: 30
-  damping: 0.92
+  solverIterations: 15
+  damping: 0.85
   gravityScale: 1
   collisionMask:
     serializedVersion: 2
     m_Bits: 4294967295
-  collisionRadius: 0.02
+  collisionRadius: 0.005
 --- !u!114 &8390955426064085774
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -194,7 +194,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5116683578653006480}
-  - component: {fileID: 1629222987463097290}
   - component: {fileID: 293380385669806752}
   m_Layer: 0
   m_Name: EndPoint
@@ -219,27 +218,6 @@ Transform:
   - {fileID: 2457961595182333499}
   m_Father: {fileID: 8882149177404839554}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &1629222987463097290
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2430074891935826575}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &293380385669806752
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -263,7 +241,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7820463813640216584}
-  - component: {fileID: 1034950879551110094}
   - component: {fileID: 4411738438556860723}
   m_Layer: 0
   m_Name: StartPoint
@@ -288,27 +265,6 @@ Transform:
   - {fileID: 587325505187290309}
   m_Father: {fileID: 8882149177404839554}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &1034950879551110094
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6980861919476529704}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &4411738438556860723
 MonoBehaviour:
   m_ObjectHideFlags: 0

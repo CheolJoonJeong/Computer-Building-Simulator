@@ -165,13 +165,13 @@ MonoBehaviour:
   totalLength: 1.5
   cableWidth: 0.02
   cableMaterial: {fileID: 0}
-  solverIterations: 30
-  damping: 0.92
+  solverIterations: 15
+  damping: 0.85
   gravityScale: 1
   collisionMask:
     serializedVersion: 2
     m_Bits: 4294967295
-  collisionRadius: 0.02
+  collisionRadius: 0.005
 --- !u!114 &1330824178963399867
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -194,7 +194,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6057737598857460673}
-  - component: {fileID: 5482048217348412132}
   - component: {fileID: 5031525496481640717}
   m_Layer: 0
   m_Name: EndPoint
@@ -219,27 +218,6 @@ Transform:
   - {fileID: 3696233173610642884}
   m_Father: {fileID: 5946877832756508030}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &5482048217348412132
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5313859416562087995}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &5031525496481640717
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -263,7 +241,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5840885318826744027}
-  - component: {fileID: 1639963921138638387}
   - component: {fileID: 64623363747603429}
   m_Layer: 0
   m_Name: StartPoint
@@ -288,27 +265,6 @@ Transform:
   - {fileID: 3142601591759857012}
   m_Father: {fileID: 5946877832756508030}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &1639963921138638387
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5521704497876261665}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &64623363747603429
 MonoBehaviour:
   m_ObjectHideFlags: 0
