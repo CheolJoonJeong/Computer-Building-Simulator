@@ -9,11 +9,14 @@ EditorBuildSettings:
     path: Assets/Scenes/MainMenu.unity
     guid: 178afcb0129f9dd42a4b517b8c78584e
   - enabled: 1
+    path: Assets/Scenes/Estimate.unity
+    guid: 439a15993b5a65941a89edd17be81442
+  - enabled: 1
     path: Assets/Scenes/Assembly.unity
     guid: fe3f10a78117abc49a3ba5f4918ea68b
   - enabled: 1
-    path: Assets/Scenes/Estimate.unity
-    guid: 439a15993b5a65941a89edd17be81442
+    path: Assets/Scenes/Viewer.unity
+    guid: e52beb9e3f0de3c489d2719d91566f9b
   - enabled: 1
     path: Assets/Scenes/Model.unity
     guid: 563d56ff0111b704d97aba161e7c8dfd
