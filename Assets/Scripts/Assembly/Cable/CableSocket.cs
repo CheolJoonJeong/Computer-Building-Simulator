@@ -15,6 +15,7 @@ public class CableSocket : MonoBehaviour
     public CableType CableType => cableType;
     public bool IsSource => isSource;
     public bool IsOccupied => connected != null;
+    public Transform AnchorTransform => transform;
 
     private CableConnector connected;
 
