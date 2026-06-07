@@ -27,21 +27,8 @@ public class CableInteraction : MonoBehaviour
         if (cam == null || !cable.IsInitialized) return;
 
         if (Input.GetMouseButtonDown(0))
-        {
-            // Shift+클릭 → 묶기 선택, 일반 클릭 → 정리
-            if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
-                TryBundleSelect();
-            else
-                HandleClick();
-        }
+            HandleClick();
         if (Input.GetKeyDown(KeyCode.G)) ReleaseSelected();
-    }
-
-    void TryBundleSelect()
-    {
-        int idx = GetClickedParticle();
-        if (idx >= 0)
-            CableBundler.Instance?.AddSelection(this, idx);
     }
 
     // ---- 번들러 연동 ----
@@ -77,7 +64,7 @@ public class CableInteraction : MonoBehaviour
         if (idx >= 0)
         {
             selectedParticle = idx;
-            foreach (var t in CableTiePoint.All) t.ShowIndicator(true);
+            foreach (var t in CableTiePoint.All) { t.ShowIndicator(true); t.RefreshForContext(this); }
             cable.SetColor(Color.cyan);
             return;
         }
@@ -97,13 +84,11 @@ public class CableInteraction : MonoBehaviour
     void FixToTiePoint(CableTiePoint tie)
     {
         // 도달 범위 검증 (늘어남 방지)
-        float segLen = cable.SegmentLength;
-        float maxFromStart = selectedParticle * segLen;
-        float maxFromEnd = (cable.Segments - selectedParticle) * segLen;
+        float totalLen = cable.Segments * cable.SegmentLength;
         float dStart = Vector3.Distance(cable.GetParticle(0), tie.transform.position);
         float dEnd = Vector3.Distance(cable.GetParticle(cable.Segments), tie.transform.position);
 
-        if (dStart > maxFromStart * 1.02f || dEnd > maxFromEnd * 1.02f)
+        if (dStart + dEnd > totalLen * 1.05f)
         {
             Debug.Log("[Cable] Tie point out of reach for this point.");
             Deselect();
@@ -153,17 +138,31 @@ public class CableInteraction : MonoBehaviour
     {
         selectedParticle = -1;
         foreach (var t in CableTiePoint.All)
-            if (!t.HasAnyBound) t.ShowIndicator(false);
+        {
+            t.ShowIndicator(false);
+            t.RefreshDefault();
+        }
         cable.SetColor(Color.white);
     }
 
     CableTiePoint GetClickedTiePoint()
     {
         Ray ray = cam.ScreenPointToRay(Input.mousePosition);
-        int mask = ~LayerMask.GetMask("Ignore Raycast", "AssembledPart");
-        if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, mask))
-            return hit.collider.GetComponent<CableTiePoint>()
-                ?? hit.collider.GetComponentInParent<CableTiePoint>();
+        // 케이스 벽 등에 가려진 타이포인트도 찾도록 RaycastAll로 뚫고 탐색
+        // (타이포인트는 조립된 파츠(AssembledPart) 자식인 경우가 많아 레이어 제외하면 안 됨)
+        RaycastHit[] hits = Physics.RaycastAll(ray, Mathf.Infinity, ~LayerMask.GetMask("Ignore Raycast"),
+                                               QueryTriggerInteraction.Collide);
+        System.Array.Sort(hits, (a, b) => a.distance.CompareTo(b.distance));
+#if UNITY_EDITOR
+        Debug.Log($"[TieDebug] ray hits: {hits.Length}" +
+            string.Concat(System.Array.ConvertAll(hits, h => $" | {h.collider.name}(layer={LayerMask.LayerToName(h.collider.gameObject.layer)}, trigger={h.collider.isTrigger}, dist={h.distance:F2})")));
+#endif
+        foreach (var h in hits)
+        {
+            CableTiePoint tie = h.collider.GetComponent<CableTiePoint>()
+                             ?? h.collider.GetComponentInParent<CableTiePoint>();
+            if (tie != null) return tie;
+        }
         return null;
     }
 

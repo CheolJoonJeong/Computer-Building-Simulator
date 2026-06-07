@@ -13,12 +13,20 @@ public class CableSpawner : MonoBehaviour
     [SerializeField] private CableSocket sourceSocket;
     [Tooltip("스폰 직후 끝점이 초기 배치될 위치를 가리키는 오브젝트. 비워두면 시작점 기준 기본 오프셋 사용 (주변 소켓과 안 겹치는 곳에 빈 오브젝트를 두고 등록)")]
     [SerializeField] private Transform initialEndPoint;
+    [Tooltip("이 케이블이 연결되는 목적지 파츠 — 장착(AssembledPart 레이어) 전엔 케이블 생성 불가 " +
+             "(예: Fan 케이블은 Cooler가 장착되어야 함. sourceSocket만으론 판단 불가한 경우에 사용)")]
+    [SerializeField] private PartInfo requiredAssembledPart;
 
     private GameObject connectedCableInstance;
     private CableConnector connectedStart;
     private CableConnector connectedEnd;
     private bool isAssembled;
     public bool IsAssembled => isAssembled;
+
+    // 평가용 — 케이블 양쪽 끝(시작/도착 소켓)이 모두 실제로 연결되었는지
+    public bool BothEndsConnected =>
+        connectedStart != null && connectedStart.IsConnected &&
+        connectedEnd != null && connectedEnd.IsConnected;
 
     // UI 버튼 OnClick 에 연결
     public void OnButtonClick()
@@ -31,10 +39,28 @@ public class CableSpawner : MonoBehaviour
             return;
         }
 
+        // 명시적으로 지정된 목적지 파츠가 아직 장착되지 않았다면 생성 불가
+        // (예: Fan 케이블은 쿨러가 장착되어야 하므로 requiredAssembledPart에 쿨러를 직접 지정)
+        if (!IsPartAssembled(requiredAssembledPart))
+        {
+            Debug.Log("[CableSpawner] Required destination part not assembled yet — cable spawn blocked.");
+            return;
+        }
+
         if (sourceSocket != null)
             CableManager.Instance.StartFromSpawner(cableType, this, sourceSocket);
         else
             CableManager.Instance.SelectCableType(cableType, this);
+    }
+
+    // info가 null이면 검사 대상 없음(통과). 지정된 경우 AssembledPart 레이어인지로 장착 여부 판단
+    private bool IsPartAssembled(PartInfo info)
+    {
+        if (info == null) return true;
+        // 케이스는 SnapZone을 거치지 않고 처음부터 씬에 존재하는 베이스 파츠 — 항상 장착된 것으로 간주
+        // (레이어를 AssembledPart로 바꾸면 레이캐스트 차단 등 부작용이 있어 별도 판단)
+        if (info.data != null && info.data.partType == PartType.Case) return true;
+        return info.gameObject.layer == LayerMask.NameToLayer("AssembledPart");
     }
 
     public (CableConnector start, CableConnector end, CableComponent cable) SpawnAt(Vector3 position)

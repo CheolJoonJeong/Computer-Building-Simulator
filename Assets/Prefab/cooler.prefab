@@ -318,7 +318,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3015809663880408390
 Transform:
   m_ObjectHideFlags: 0
@@ -413,7 +413,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1989724276608647521}
   m_Layer: 0
-  m_Name: ' collider_box'
+  m_Name: collider_box
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -542,6 +542,7 @@ MonoBehaviour:
   cableType: 3
   isSource: 1
   socketVisual: {fileID: 3843330920799396493}
+  endRoute: []
 --- !u!1 &8501693815739821628
 GameObject:
   m_ObjectHideFlags: 0

@@ -25,14 +25,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 909751102013838751}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0.3, y: 0, z: 0}
   m_LocalScale: {x: 0.02852, y: 0.012829999, z: 0.0175}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1329373121932030483}
   m_Father: {fileID: 3101534880607596756}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!114 &9165020788197949959
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -72,14 +72,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5143420976475100958}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.02852, y: 0.012829999, z: 0.0175}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8932990174259361593}
   m_Father: {fileID: 3101534880607596756}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!114 &4532198171603009431
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -258,7 +258,7 @@ MonoBehaviour:
   segments: 24
   totalLength: 1.5
   cableWidth: 0.02
-  cableMaterial: {fileID: 0}
+  cableMaterial: {fileID: 2100000, guid: 0b0ef24106dcfb946b719c52850edabc, type: 2}
   solverIterations: 15
   damping: 0.85
   gravityScale: 1

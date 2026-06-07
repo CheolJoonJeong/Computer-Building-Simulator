@@ -153,6 +153,7 @@ MonoBehaviour:
   cableType: 0
   isSource: 1
   socketVisual: {fileID: 1941018911463340811}
+  endRoute: []
 --- !u!1 &448730857884869227
 GameObject:
   m_ObjectHideFlags: 0
@@ -999,6 +1000,7 @@ MonoBehaviour:
   cableType: 1
   isSource: 1
   socketVisual: {fileID: 9122303803595377768}
+  endRoute: []
 --- !u!1 &6053166188384248751
 GameObject:
   m_ObjectHideFlags: 0
@@ -1101,6 +1103,7 @@ MonoBehaviour:
   cableType: 2
   isSource: 1
   socketVisual: {fileID: 6252070443231779769}
+  endRoute: []
 --- !u!1 &7409582400470990859
 GameObject:
   m_ObjectHideFlags: 0

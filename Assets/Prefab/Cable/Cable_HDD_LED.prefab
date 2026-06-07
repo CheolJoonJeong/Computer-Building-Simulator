@@ -164,7 +164,7 @@ MonoBehaviour:
   segments: 24
   totalLength: 1.5
   cableWidth: 0.02
-  cableMaterial: {fileID: 0}
+  cableMaterial: {fileID: 2100000, guid: 0b0ef24106dcfb946b719c52850edabc, type: 2}
   solverIterations: 15
   damping: 0.85
   gravityScale: 1
@@ -210,14 +210,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5313859416562087995}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.3, y: 0, z: 0}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0.2994796, y: 0, z: -0.012483888}
   m_LocalScale: {x: 0.028517857, y: 0.012834944, z: 0.017495705}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3696233173610642884}
   m_Father: {fileID: 5946877832756508030}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!114 &5031525496481640717
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -257,14 +257,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5521704497876261665}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0.00052040815, y: 0, z: 0.012483888}
   m_LocalScale: {x: 0.028517857, y: 0.012834944, z: 0.017495705}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3142601591759857012}
   m_Father: {fileID: 5946877832756508030}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!114 &64623363747603429
 MonoBehaviour:
   m_ObjectHideFlags: 0

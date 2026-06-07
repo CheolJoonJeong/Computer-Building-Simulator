@@ -2044,7 +2044,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4701481186523510643
 Transform:
   m_ObjectHideFlags: 0
@@ -3408,6 +3408,9 @@ MonoBehaviour:
   cableType: 2
   isSource: 0
   socketVisual: {fileID: 1497661292418728942}
+  endRoute:
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!1 &8304357609589488071
 GameObject:
   m_ObjectHideFlags: 0

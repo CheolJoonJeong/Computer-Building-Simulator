@@ -3,6 +3,8 @@ using UnityEngine;
 public class SnapZone : MonoBehaviour
 {
     public PartType acceptType;
+    [Tooltip("RAM 슬롯인 경우의 슬롯 번호 (1~4). 평가 시 RAM 장착 조합(2,4 / 1,3 / 1,2,3,4) 검증에 사용")]
+    public int ramSlotIndex = 0;
     public bool isOccupied = false;
     private GameObject snappedPart = null;
 

@@ -26,7 +26,7 @@ public static class CableSetup
                     {
                         var c = go.AddComponent<SphereCollider>();
                         c.isTrigger = true;
-                        c.radius = 0.05f;
+                        c.radius = 0.08f;
                     }
                     go.AddComponent<CablePassThrough>();
                     count++;

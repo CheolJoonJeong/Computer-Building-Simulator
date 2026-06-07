@@ -7,7 +7,7 @@ public class CableTiePoint : MonoBehaviour
 {
     public static readonly List<CableTiePoint> All = new();
 
-    [SerializeField] private float indicatorScale = 0.06f;
+    [SerializeField] private float indicatorScale = 0.1f;
     [SerializeField] private Color idleColor      = new Color(1f, 1f, 1f, 0.25f);
     [SerializeField] private Color highlightColor = new Color(1f, 0.8f, 0f, 0.5f);
     [SerializeField] private Color boundColor     = new Color(0f, 1f, 0.4f, 0.5f);
@@ -63,14 +63,30 @@ public class CableTiePoint : MonoBehaviour
     public void Bind(CableInteraction cable)
     {
         if (!bound.Contains(cable)) bound.Add(cable);
-        SetColor(boundColor);
         ShowIndicator(true);
+        RefreshForContext(cable);
     }
 
     public void Unbind(CableInteraction cable)
     {
         bound.Remove(cable);
         if (!HasAnyBound) { SetColor(idleColor); ShowIndicator(false); }
+        else RefreshForContext(cable);
+    }
+
+    public bool IsBoundTo(CableInteraction cable) => bound.Contains(cable);
+
+    // 특정 케이블을 기준으로 색상 갱신 — 그 케이블이 고정한 포인트만 초록색,
+    // 그 외(다른 케이블이 고정했거나 비어있는) 포인트는 평소 색으로 표시
+    public void RefreshForContext(CableInteraction context)
+    {
+        SetColor(context != null && IsBoundTo(context) ? boundColor : idleColor);
+    }
+
+    // 컨텍스트(선택된 케이블) 없을 때 기본 표시 — 누군가에게 고정돼 있으면 초록색
+    public void RefreshDefault()
+    {
+        SetColor(HasAnyBound ? boundColor : idleColor);
     }
 
     void SetColor(Color c)

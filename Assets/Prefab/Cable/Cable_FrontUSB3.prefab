@@ -211,7 +211,7 @@ MonoBehaviour:
   segments: 24
   totalLength: 1.5
   cableWidth: 0.02
-  cableMaterial: {fileID: 0}
+  cableMaterial: {fileID: 2100000, guid: 0b0ef24106dcfb946b719c52850edabc, type: 2}
   solverIterations: 15
   damping: 0.85
   gravityScale: 1
