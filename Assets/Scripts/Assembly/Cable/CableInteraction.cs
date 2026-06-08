@@ -65,6 +65,7 @@ public class CableInteraction : MonoBehaviour
         {
             selectedParticle = idx;
             foreach (var t in CableTiePoint.All) { t.ShowIndicator(true); t.RefreshForContext(this); }
+            foreach (var p in CablePassThrough.All) p.SetSelected(true);
             cable.SetColor(Color.cyan);
             return;
         }
@@ -142,6 +143,7 @@ public class CableInteraction : MonoBehaviour
             t.ShowIndicator(false);
             t.RefreshDefault();
         }
+        foreach (var p in CablePassThrough.All) p.SetSelected(false);
         cable.SetColor(Color.white);
     }
 

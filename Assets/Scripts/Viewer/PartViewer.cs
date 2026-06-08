@@ -24,7 +24,7 @@ public class PartViewer : MonoBehaviour
     void Start()
     {
         if (parts.Length > 0)
-            ShowPart(0);
+            ShowPart(Mathf.Clamp(ViewerState.LastViewedIndex, 0, parts.Length - 1));
     }
 
     public void ShowPart(int index)
@@ -33,6 +33,7 @@ public class PartViewer : MonoBehaviour
         for (int i = 0; i < parts.Length; i++)
             parts[i].SetActive(i == index);
         currentIndex = index;
+        ViewerState.LastViewedIndex = index;
 
         // 2. 중심 맞추기 (피벗 보정)
         CenterPart(parts[index]);

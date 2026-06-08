@@ -16,6 +16,9 @@ public class CableManager : MonoBehaviour
     private CableComponent activeCable;
     private CableConnector activeEndConnector;
 
+    // 통과점 클릭 되돌리기용 — (통과점, 그 클릭으로 추가된 anchor 개수) 스택
+    private readonly System.Collections.Generic.Stack<(CablePassThrough pt, int anchorCount)> passThroughHistory = new();
+
     public bool IsRouting => state == State.Routing;
 
     // 단계별로 표시할 소켓: TypeSelected → 출발 소켓, Routing → 도착 소켓
@@ -37,6 +40,14 @@ public class CableManager : MonoBehaviour
     {
         // 타입 선택/라우팅 중일 때만 소켓 클릭을 감지
         if (state == State.Idle) return;
+
+        // G키 → 마지막 통과점 라우팅 되돌리기
+        if (state == State.Routing && Input.GetKeyDown(KeyCode.G))
+        {
+            UndoLastPassThrough();
+            return;
+        }
+
         if (!Input.GetMouseButtonDown(0)) return;
         // UI 버튼 위 클릭은 무시
         if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject()) return;
@@ -51,6 +62,9 @@ public class CableManager : MonoBehaviour
         {
             CableSocket sock = h.collider.GetComponentInParent<CableSocket>();
             if (sock != null) { OnSocketClicked(sock); return; }
+
+            CablePassThrough pt = h.collider.GetComponentInParent<CablePassThrough>();
+            if (pt != null) { OnPassThroughClicked(pt); return; }
         }
     }
 
@@ -135,17 +149,35 @@ public class CableManager : MonoBehaviour
     public void OnPassThroughClicked(CablePassThrough pt)
     {
         if (state != State.Routing || activeCable == null) return;
+        if (pt.Passed) return; // 한 구멍은 한 번만 통과 가능
+
+        pt.MarkPassed();
+        int added = 1;
         activeCable.AddRouteAnchor(pt.transform);
 
         if (pt.ForcedRoute != null)
             foreach (var anchor in pt.ForcedRoute)
-                if (anchor != null) activeCable.AddRouteAnchor(anchor);
+                if (anchor != null) { activeCable.AddRouteAnchor(anchor); added++; }
 
+        passThroughHistory.Push((pt, added));
         activeCable.MoveEndTo(pt.transform.position);
+    }
+
+    // 마지막 통과점 클릭 되돌리기 (우클릭)
+    void UndoLastPassThrough()
+    {
+        if (activeCable == null || passThroughHistory.Count == 0) return;
+
+        var (pt, count) = passThroughHistory.Pop();
+        for (int i = 0; i < count; i++)
+            activeCable.RemoveLastRouteAnchor();
+
+        pt.UnmarkPassed();
     }
 
     void Finish()
     {
+        passThroughHistory.Clear();
         state = State.Idle;
         SelectedType = null;
         activeSpawner = null;

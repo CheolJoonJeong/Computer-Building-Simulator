@@ -93,6 +93,18 @@ public class CableComponent : MonoBehaviour
         RebuildRoutePins();
     }
 
+    // 마지막으로 추가된 통과점 제거 (라우팅 되돌리기) — 제거된 anchor를 반환
+    public Transform RemoveLastRouteAnchor()
+    {
+        if (routeAnchors.Count == 0) return null;
+        Transform removed = routeAnchors[routeAnchors.Count - 1];
+        routeAnchors.RemoveAt(routeAnchors.Count - 1);
+        RebuildRoutePins();
+        return removed;
+    }
+
+    public int RouteAnchorCount => routeAnchors.Count;
+
     // 끝점을 소켓에 고정 (마지막 연결)
     public void SetEndAnchor(Transform endAnchor)
     {
