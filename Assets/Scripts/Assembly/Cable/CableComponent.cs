@@ -36,6 +36,8 @@ public class CableComponent : MonoBehaviour
     // 라우팅(통과점)으로 추가된 인덱스 추적
     private readonly List<Transform> routeAnchors = new();
     private readonly HashSet<int> routeIndices = new();
+    // 이 케이블이 통과한 CablePassThrough들 — 분리 시 통과 표시 해제용
+    private readonly List<CablePassThrough> usedPassThroughs = new();
 
     public int Segments => segments;
     public float TotalLength => totalLength;
@@ -104,6 +106,17 @@ public class CableComponent : MonoBehaviour
     }
 
     public int RouteAnchorCount => routeAnchors.Count;
+
+    // 통과한 CablePassThrough 등록 (분리 시 통과 표시 해제용)
+    public void RegisterPassThrough(CablePassThrough pt) => usedPassThroughs.Add(pt);
+
+    // 케이블 분리 시 호출 — 사용했던 통과점들의 "통과됨" 표시를 해제해 다른 케이블이 쓸 수 있게 함
+    public void ReleasePassThroughs()
+    {
+        foreach (var pt in usedPassThroughs)
+            if (pt != null) pt.UnmarkPassed();
+        usedPassThroughs.Clear();
+    }
 
     // 끝점을 소켓에 고정 (마지막 연결)
     public void SetEndAnchor(Transform endAnchor)

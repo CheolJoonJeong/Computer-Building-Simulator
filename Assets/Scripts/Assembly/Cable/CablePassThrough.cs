@@ -17,7 +17,8 @@ public class CablePassThrough : MonoBehaviour
 
     public Transform[] ForcedRoute => forcedRoute;
 
-    private bool passed = false;
+    private int passCount = 0;   // 동시에 이 통과점을 사용 중인 케이블 수 (여러 케이블이 공유 가능)
+    private bool passed = false; // passCount > 0 (시각 표시용)
     private bool selected = false;   // 케이블 클릭(정리 모드) 시 타이포인트처럼 표시
 
     private GameObject indicator;
@@ -75,13 +76,17 @@ public class CablePassThrough : MonoBehaviour
 
     public void MarkPassed()
     {
+        passCount++;
         passed = true;
         SetColor(passedColor);
     }
 
-    // 라우팅 되돌리기 시 통과 표시 해제
+    // 라우팅 되돌리기/케이블 분리 시 통과 표시 해제 (다른 케이블이 아직 쓰고 있으면 표시 유지)
     public void UnmarkPassed()
     {
+        passCount = Mathf.Max(0, passCount - 1);
+        if (passCount > 0) return;
+
         passed = false;
         SetColor(selected ? highlightColor : idleColor);
     }

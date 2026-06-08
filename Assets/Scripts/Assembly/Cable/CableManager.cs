@@ -149,9 +149,9 @@ public class CableManager : MonoBehaviour
     public void OnPassThroughClicked(CablePassThrough pt)
     {
         if (state != State.Routing || activeCable == null) return;
-        if (pt.Passed) return; // 한 구멍은 한 번만 통과 가능
 
         pt.MarkPassed();
+        activeCable.RegisterPassThrough(pt);
         int added = 1;
         activeCable.AddRouteAnchor(pt.transform);
 

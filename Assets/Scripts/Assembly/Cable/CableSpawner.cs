@@ -126,7 +126,10 @@ public class CableSpawner : MonoBehaviour
         if (connectedEnd != null) connectedEnd.Disconnect();
 
         if (connectedCableInstance != null)
+        {
+            connectedCableInstance.GetComponent<CableComponent>()?.ReleasePassThroughs();
             Destroy(connectedCableInstance);
+        }
 
         connectedCableInstance = null;
         connectedStart = null;
