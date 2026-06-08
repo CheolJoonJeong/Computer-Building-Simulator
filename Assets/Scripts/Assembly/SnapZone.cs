@@ -13,7 +13,9 @@ public class SnapZone : MonoBehaviour
 
     void Start()
     {
-        if (startOccupied && startPart != null)
+        bool playerDetached = AssemblyProgress.DetachedSlots.Contains(gameObject.name);
+
+        if (startOccupied && startPart != null && !playerDetached)
         {
             startPart.SetActive(true);
             startPart.transform.position = transform.position;
@@ -26,6 +28,49 @@ public class SnapZone : MonoBehaviour
 
             snappedPart = startPart;
             isOccupied = true;
+            return;
+        }
+
+        // 처음부터 장착된 슬롯이지만 플레이어가 분리한 적이 있으면 분리 상태 유지
+        if (startOccupied && startPart != null && playerDetached)
+        {
+            startPart.transform.SetParent(null);
+            SetLayerRecursively(startPart, LayerMask.NameToLayer("Default"));
+            startPart.SetActive(false);
+
+            foreach (PartSelector ps in FindObjectsOfType<PartSelector>(true))
+                if (ps.targetPart == startPart) { ps.SetUnassembled(); break; }
+
+            snappedPart = null;
+            isOccupied = false;
+            return;
+        }
+
+        // 뷰어 등 다른 씬에 갔다 돌아온 경우 — 이전에 장착했던 슬롯이면 복원
+        if (AssemblyProgress.SnappedSlots.Contains(gameObject.name))
+            RestoreFromProgress();
+    }
+
+    // 이 슬롯에 연결된 PartSelector의 targetPart를 찾아 즉시 장착 (체크 없이)
+    void RestoreFromProgress()
+    {
+        foreach (PartSelector ps in FindObjectsOfType<PartSelector>(true))
+        {
+            if (ps.targetSlot == gameObject && ps.targetPart != null)
+            {
+                GameObject part = ps.targetPart;
+                part.SetActive(true);
+                part.transform.position = transform.position;
+                part.transform.rotation = transform.rotation;
+                part.transform.SetParent(transform.parent);
+                SetLayerRecursively(part, LayerMask.NameToLayer("AssembledPart"));
+
+                ps.SetAssembled();
+
+                snappedPart = part;
+                isOccupied = true;
+                return;
+            }
         }
     }
 
@@ -68,6 +113,8 @@ public class SnapZone : MonoBehaviour
 
                     snappedPart = null;
                     isOccupied = false;
+                    AssemblyProgress.SnappedSlots.Remove(gameObject.name);
+                    AssemblyProgress.DetachedSlots.Add(gameObject.name);
                     Debug.Log("Detached!");
                 }
             }
@@ -126,6 +173,8 @@ public class SnapZone : MonoBehaviour
 
         snappedPart = selectedPart;
         isOccupied = true;
+        AssemblyProgress.SnappedSlots.Add(gameObject.name);
+        AssemblyProgress.DetachedSlots.Remove(gameObject.name);
         PartSelectionManager.Clear();
         Debug.Log("Assembled!");
 
@@ -137,6 +186,8 @@ public class SnapZone : MonoBehaviour
     {
         snappedPart = null;
         isOccupied = false;
+        AssemblyProgress.SnappedSlots.Remove(gameObject.name);
+        AssemblyProgress.DetachedSlots.Add(gameObject.name);
     }
 
     void SetLayerRecursively(GameObject obj, int layer)

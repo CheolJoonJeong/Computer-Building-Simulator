@@ -6,8 +6,27 @@ using UnityEngine.Networking;
 
 public class GeminiClient : MonoBehaviour
 {
-    [SerializeField] private string apiKey = ""; // Unity Inspector에서 입력
+    [SerializeField] private string apiKey = ""; // 비워두면 GeminiApiKey.txt에서 로드 (키를 깃에 커밋하지 않기 위함)
     [SerializeField] private string model = "gemini-2.5-flash";
+
+    private const string KeyFileName = "GeminiApiKey.txt";
+
+    void Awake()
+    {
+        if (string.IsNullOrEmpty(apiKey))
+            apiKey = LoadKeyFromFile();
+    }
+
+    // 프로젝트 루트의 GeminiApiKey.txt (.gitignore에 등록됨)에서 키를 읽음
+    private string LoadKeyFromFile()
+    {
+        string path = System.IO.Path.Combine(Application.dataPath, "..", KeyFileName);
+        if (System.IO.File.Exists(path))
+            return System.IO.File.ReadAllText(path).Trim();
+
+        Debug.LogWarning($"[GeminiClient] API key not set. Create '{KeyFileName}' next to the project folder, or assign it in the Inspector.");
+        return "";
+    }
 
     // ====== 요청 구조 ======
     [Serializable]

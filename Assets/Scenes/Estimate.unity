@@ -4845,7 +4845,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e52d423956b0e4c45b5d5aea75766a89, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  apiKey: AQ.Ab8RN6JnMl245oSaayNITIqdpATYuilm9bbIkRWI_WtyJSJ3KA
+  apiKey: 
   model: gemini-2.5-flash
 --- !u!114 &1586080216
 MonoBehaviour:

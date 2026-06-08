@@ -17,10 +17,4 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Viewer.unity
     guid: e52beb9e3f0de3c489d2719d91566f9b
-  - enabled: 1
-    path: Assets/Scenes/Model.unity
-    guid: 563d56ff0111b704d97aba161e7c8dfd
-  - enabled: 0
-    path: Assets/Scenes/Estimate1.unity
-    guid: e8c140945180a5c46a769687e2fb7e27
   m_configObjects: {}
