@@ -10044,6 +10044,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: pc case
       objectReference: {fileID: 0}
+    - target: {fileID: 1501983294525810260, guid: f2f925dae60f1884bb65b6dae600f9f2, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -7.4882
+      objectReference: {fileID: 0}
+    - target: {fileID: 1501983294525810260, guid: f2f925dae60f1884bb65b6dae600f9f2, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 4.7434
+      objectReference: {fileID: 0}
+    - target: {fileID: 2923054212839938809, guid: f2f925dae60f1884bb65b6dae600f9f2, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -7.6257
+      objectReference: {fileID: 0}
+    - target: {fileID: 2923054212839938809, guid: f2f925dae60f1884bb65b6dae600f9f2, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 4.6927004
+      objectReference: {fileID: 0}
+    - target: {fileID: 2923054212839938809, guid: f2f925dae60f1884bb65b6dae600f9f2, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -17.111
+      objectReference: {fileID: 0}
     - target: {fileID: 3089771514105445953, guid: f2f925dae60f1884bb65b6dae600f9f2, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
